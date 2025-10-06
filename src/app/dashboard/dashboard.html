@@ -1,0 +1,16 @@
+<mat-grid-list [cols]="cols()" rowHeight="160px" gutterSize="16px" class="board">
+  <mat-grid-tile *ngFor="let t of tiles()"
+                 [colspan]="t.colspan"
+                 [rowspan]="t.rowspan"
+                 class="tile">
+    <div class="placeholder">
+      <div class="placeholder-content">
+        <div class="label">Leeg vak</div>
+        <button mat-stroked-button class="add-btn" (click)="onAdd(t)" aria-label="Widget toevoegen">
+          <mat-icon>add</mat-icon>
+          Toevoegen
+        </button>
+      </div>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>

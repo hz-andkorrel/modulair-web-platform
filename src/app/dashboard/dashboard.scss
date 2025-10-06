@@ -1,0 +1,37 @@
+:host {
+  display: block;
+  padding: 16px;
+}
+
+.board {
+}
+
+.tile .placeholder {
+  height: 100%;
+  width: 100%;
+  border: 2px dashed rgba(0,0,0,.2);
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(0,0,0,.02);
+}
+
+.placeholder-content {
+  display: grid;
+  gap: 8px;
+  place-items: center;
+  text-align: center;
+}
+
+.label {
+  font-size: 13px;
+  opacity: .7;
+}
+
+.add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 2px 12px;
+}
