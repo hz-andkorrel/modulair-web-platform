@@ -6,6 +6,7 @@
   width: 280px;
   background-color: #fafafa;
   border-right: 1px solid #e0e0e0;
+  border-radius: 0 !important;
 }
 
 mat-toolbar {
@@ -15,6 +16,7 @@ mat-toolbar {
   font-weight: 600;
   font-size: 16px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border-radius: 0 !important;
 }
 
 .home-toolbar {
@@ -116,6 +118,9 @@ mat-sidenav-content {
 
 mat-toolbar[color="primary"] {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
   
   button[mat-icon-button] {
     margin-right: 8px;
