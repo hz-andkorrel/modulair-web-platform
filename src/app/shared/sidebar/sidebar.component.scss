@@ -18,6 +18,14 @@ mat-toolbar {
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
+// Specific styling for the sidebar toolbar with centered icons
+.home-toolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
 // Main navigation list
 mat-nav-list {
   padding: 0;

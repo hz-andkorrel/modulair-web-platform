@@ -35,6 +35,8 @@ export class SidebarComponent {
     switch (route) {
       case '/registry':
         return 'Registry';
+      case '/settings':
+        return 'Settings';
       case '/plugin1':
         return 'Plugin 1';
       default:
@@ -67,6 +69,17 @@ export class SidebarComponent {
   }
 
   goHome(): void {
+    this.router.navigate(['']);
+  }
+
+  goRegistry(): void {
     this.router.navigate(['/registry']);
+  }
+
+  goSettings(): void {
+    this.router.navigate(['/settings']);
+  }
+
+  goProfile(): void {
   }
 }
