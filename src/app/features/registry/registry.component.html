@@ -2,17 +2,18 @@
   <div class="header">
     <h1>Plugins</h1>
     <p>{{ filteredPlugins().length }} plugins available</p>
-    
+
     <!-- Search Field -->
     <div class="search-container">
       <mat-form-field class="search-field" appearance="outline">
         <mat-label>Search plugins</mat-label>
-        <input 
-          matInput 
+        <input
+          matInput
           placeholder="Search by name, category, or description..."
           [matAutocomplete]="auto"
           [ngModel]="searchTerm()"
-          (input)="onSearchInput($event)">
+          (input)="onSearchInput($event)"
+        />
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
 
@@ -20,29 +21,25 @@
       <div class="filter-chips">
         <span class="chips-label"></span>
         @for (tag of availableFilterTags(); track tag) {
-          <mat-chip 
-            [class.selected]="selectedTags().includes(tag)"
-            (click)="toggleTag(tag)">
-            {{ tag }}
-          </mat-chip>
+        <mat-chip [class.selected]="selectedTags().includes(tag)" (click)="toggleTag(tag)">
+          {{ tag }}
+        </mat-chip>
         }
       </div>
 
       <!-- Search Autocomplete -->
       <mat-autocomplete #auto="matAutocomplete">
         @for (suggestion of searchSuggestions(); track suggestion) {
-          <mat-option [value]="suggestion" (onSelectionChange)="onSuggestionSelected(suggestion)">
-            <div class="suggestion-item">
-              <mat-icon>search</mat-icon>
-              <span>{{ suggestion }}</span>
-            </div>
-          </mat-option>
-        }
-        
-        @if (searchSuggestions().length === 0 && searchTerm().length >= 2) {
-          <mat-option disabled>
-            <em>No suggestions found</em>
-          </mat-option>
+        <mat-option [value]="suggestion" (onSelectionChange)="onSuggestionSelected(suggestion)">
+          <div class="suggestion-item">
+            <mat-icon>search</mat-icon>
+            <span>{{ suggestion }}</span>
+          </div>
+        </mat-option>
+        } @if (searchSuggestions().length === 0 && searchTerm().length >= 2) {
+        <mat-option disabled>
+          <em>No suggestions found</em>
+        </mat-option>
         }
       </mat-autocomplete>
     </div>
@@ -50,28 +47,51 @@
 
   <mat-list class="plugin-list">
     @for (plugin of filteredPlugins(); track plugin.id) {
-      <mat-list-item class="plugin-item">
-        <div class="plugin-content">
-          <div class="plugin-icon">
-            <!-- Icon placeholder - can be filled later -->
-          </div>
-          
-          <div class="plugin-info">
-            <h3 class="plugin-name">{{ plugin.name }}</h3>
-            <div class="plugin-details">
-              <span class="version">Version {{ plugin.version }}</span>
-              <span class="separator">•</span>
-              <span class="size">{{ plugin.size }}</span>
-              <span class="separator">•</span>
-              <span class="updated">Updated {{ plugin.lastUpdated }}</span>
-            </div>
+    <mat-list-item class="plugin-item">
+      <div class="plugin-content">
+        <div class="plugin-icon">
+          <!-- Icon placeholder - can be filled later -->
+        </div>
+
+        <div class="plugin-info">
+          <h3 class="plugin-name">{{ plugin.name }}</h3>
+          <div class="plugin-details">
+            <span class="version">Version {{ plugin.version }}</span>
+            <span class="separator">•</span>
+            <span class="size">{{ plugin.size }}</span>
+            <span class="separator">•</span>
+            <span class="updated">Updated {{ plugin.lastUpdated }}</span>
           </div>
         </div>
-      </mat-list-item>
-      
-      @if (!$last) {
-        <mat-divider></mat-divider>
-      }
-    }
+        <button mat-icon-button [matMenuTriggerFor]="pluginMenu" aria-label="More options">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        
+        <mat-menu #pluginMenu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>info</mat-icon>
+            <span>View Details</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>download</mat-icon>
+            <span>Install</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>share</mat-icon>
+            <span>Share</span>
+          </button>
+          <mat-divider></mat-divider>
+          <button mat-menu-item>
+            <mat-icon>flag</mat-icon>
+            <span>Report</span>
+          </button>
+        </mat-menu>
+        <div class="plugin-actions"></div>
+      </div>
+    </mat-list-item>
+
+    @if (!$last) {
+    <mat-divider></mat-divider>
+    } }
   </mat-list>
 </div>
