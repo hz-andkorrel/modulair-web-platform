@@ -1,0 +1,43 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="'navigation'"
+      mode="side" opened="true">
+    <mat-toolbar class="home-toolbar">
+      <button mat-button (click)="goHome()" class="home-button">
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </button>
+    </mat-toolbar>
+    
+    <mat-nav-list>
+      <!-- Category 1 -->
+      <mat-list-item (click)="toggleCategory('category1')" class="category-item">
+        <span matListItemTitle>Category 1</span>
+        <span matListItemMeta>{{ isExpanded('category1') ? '−' : '+' }}</span>
+      </mat-list-item>
+      
+      <div *ngIf="isExpanded('category1')" class="plugin-list">
+        <a mat-list-item routerLink="/plugin1" class="plugin-item">
+          <span matListItemTitle>Plugin 1</span>
+        </a>
+      </div>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>{{ pageTitle() }}</span>
+    </mat-toolbar>
+    <!-- Your main content goes here -->
+    <div class="content">
+      <ng-content></ng-content>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
