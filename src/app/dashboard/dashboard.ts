@@ -4,8 +4,16 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { AddWidgetDialogComponent } from './widgets/add-widget.dialog';
+import { PLUGINS } from './widgets/registry';
+import { WidgetDef } from './widgets/types';
+import { MatDialog } from '@angular/material/dialog';
 
-type Tile = { id: string; colspan: number; rowspan: number; };
+type Tile = { 
+  id: string;
+  colspan: number;
+  rowspan: number;
+  selectedWidget?: WidgetDef;};
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +24,7 @@ type Tile = { id: string; colspan: number; rowspan: number; };
 })
 export class DashboardComponent {
   private bp = inject(BreakpointObserver);
+  private dialog = inject(MatDialog);
 
   cols = signal(4);
 
@@ -39,8 +48,23 @@ export class DashboardComponent {
   }
 
   onAdd(tile: Tile) {
-    // Voor nu alleen placeholder-actie
-    console.log('Klik op lege tegel om widget toe te voegen:', tile);
-    // Hier komt later: dialoog openen / widget kiezen / opslaan
+  const ref = this.dialog.open(AddWidgetDialogComponent, {
+    data: { plugins: PLUGINS },
+    width: '1440px',
+    panelClass: 'widgets-dialog'
+  }); 
+
+    ref.afterClosed().subscribe(result => {
+      if (!result) return;
+      const { widget } = result as { widget: WidgetDef };
+      // schrijf de selectie in dit vak
+      const next = this.tiles().map(t => t.id === tile.id ? { ...t, selectedWidget: widget } : t);
+      this.tiles.set(next);
+    });
+  }
+
+  onClear(tile: Tile) {
+    const next = this.tiles().map(t => t.id === tile.id ? { ...t, selectedWidget: undefined } : t);
+    this.tiles.set(next);
   }
 }
