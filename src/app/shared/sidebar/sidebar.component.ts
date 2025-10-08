@@ -1,4 +1,6 @@
+import { categories, plugins, Plugin } from '../registry-data';
 import { Component, inject, computed, signal } from '@angular/core';
+// ...existing imports...
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -25,13 +27,18 @@ import { filter } from 'rxjs/operators';
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
+  registryPlugins = plugins;
+
+  getPluginsByCategory(category: string): Plugin[] {
+    return this.registryPlugins().filter((p: Plugin) => p.category === category);
+  }
   private router = inject(Router);
   expandedCategories: Set<string> = new Set();
+  registryCategories = categories;
   
   // Signal to track current route
   private currentRoute = signal('/plugin1');
   
-  // Computed property for page title based on current route
   pageTitle = computed(() => {
     const route = this.currentRoute();
     switch (route) {
@@ -39,22 +46,18 @@ export class SidebarComponent {
         return 'Registry';
       case '/settings':
         return 'Settings';
-      case '/plugin1':
-        return 'Plugin 1';
       default:
         return 'Dashboard';
     }
   });
 
   constructor() {
-    // Subscribe to router events to update current route
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         this.currentRoute.set(event.url);
       });
     
-    // Set initial route
     this.currentRoute.set(this.router.url);
   }
 

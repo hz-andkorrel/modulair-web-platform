@@ -23,17 +23,19 @@
     </mat-toolbar>
 
     <mat-nav-list>
-      <!-- Category 1 -->
-      <mat-list-item (click)="toggleCategory('category1')" class="category-item">
-        <span matListItemTitle>Category 1</span>
-        <span matListItemMeta>{{ isExpanded('category1') ? '−' : '+' }}</span>
-      </mat-list-item>
-
-      <div *ngIf="isExpanded('category1')" class="plugin-list">
-        <a mat-list-item routerLink="/plugin1" class="plugin-item">
-          <span matListItemTitle>Plugin 1</span>
-        </a>
-      </div>
+      @for (category of registryCategories(); track category) {
+        <mat-list-item (click)="toggleCategory(category)" class="category-item">
+          <span matListItemTitle>{{ category }}</span>
+          <span matListItemMeta>{{ isExpanded(category) ? '−' : '+' }}</span>
+        </mat-list-item>
+        <div *ngIf="isExpanded(category)" class="plugin-list">
+          @for (plugin of getPluginsByCategory(category); track plugin.id) {
+            <a mat-list-item [routerLink]="['/registry', plugin.id]" class="plugin-item">
+              <span matListItemTitle>{{ plugin.name }}</span>
+            </a>
+          }
+        </div>
+      }
     </mat-nav-list>
   </mat-sidenav>
 
