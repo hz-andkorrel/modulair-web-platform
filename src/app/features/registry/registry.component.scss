@@ -1,14 +1,185 @@
-/* Registry component styles */
 .registry-container {
-  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px;
   
-  h1 {
-    color: #333;
-    margin-bottom: 16px;
+  .header {
+    margin-bottom: 32px;
+    
+    h1 {
+      font-size: 2rem;
+      font-weight: 300;
+      margin: 0 0 8px 0;
+      color: #333;
+    }
+    
+    p {
+      color: #666;
+      margin: 0 0 24px 0;
+      font-size: 0.9rem;
+    }
+    
+    .search-container {
+      max-width: 500px;
+      
+      .search-field {
+        width: 100%;
+        
+        ::ng-deep .mat-mdc-form-field {
+          .mat-mdc-text-field-wrapper {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          }
+        }
+      }
+      
+      .filter-chips {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        
+        .chips-label {
+          font-size: 0.9rem;
+          color: #666;
+          font-weight: 500;
+        }
+        
+        mat-chip {
+          background-color: #f5f5f5;
+          color: #666;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          
+          &:hover {
+            background-color: #e0e0e0;
+          }
+          
+          &.selected {
+            background-color: #e3f2fd;
+            color: #1976d2;
+          }
+        }
+      }
+    }
   }
   
-  p {
-    color: #666;
-    font-size: 14px;
+  // Autocomplete suggestions styling
+  .suggestion-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    
+    mat-icon {
+      color: #666;
+      font-size: 18px;
+    }
+  }
+  
+  .plugin-list {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 0;
+    
+    .plugin-item {
+      padding: 0;
+      height: auto;
+      
+      .plugin-content {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 20px 24px;
+        gap: 16px;
+        
+        .plugin-icon {
+          width: 48px;
+          height: 48px;
+          background: #f0f0f0;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          
+          mat-icon {
+            color: #666;
+            font-size: 24px;
+          }
+        }
+        
+        .plugin-info {
+          flex: 1;
+          min-width: 0; // Allow shrinking
+          
+          .plugin-name {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin: 0 0 8px 0;
+            color: #333;
+          }
+          
+          .plugin-details {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: #666;
+            flex-wrap: wrap; // Allow wrapping if needed
+            
+            .separator {
+              opacity: 0.5;
+            }
+            
+            .more-button {
+              margin-left: auto;
+              color: #666;
+              min-width: 32px;
+              min-height: 32px;
+              flex-shrink: 0; // Don't shrink the button
+              
+              &:hover {
+                color: #333;
+                background-color: rgba(0,0,0,0.04);
+              }
+              
+              mat-icon {
+                font-size: 18px;
+              }
+            }
+          }
+        }
+        
+        .plugin-actions {
+          display: flex;
+          align-items: center;
+          min-width: 48px; // Ensure button has space
+          justify-content: center;
+          
+          button {
+            color: #666;
+            min-width: 40px;
+            min-height: 40px;
+            
+            &:hover {
+              color: #333;
+              background-color: rgba(0,0,0,0.04);
+            }
+            
+            mat-icon {
+              font-size: 20px;
+            }
+          }
+        }
+      }
+      
+      &:hover {
+        background-color: #f8f9fa;
+      }
+    }
   }
 }
