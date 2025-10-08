@@ -176,14 +176,4 @@ export class RegistryComponent {
       // TODO: Add logic to parse and add plugin to registry
     }
   }
-
-  onPluginUpload(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      const file = input.files[0];
-      // For now, just log the file. You can add logic to process or store the plugin file.
-      console.log('Plugin file uploaded:', file);
-      // TODO: Add logic to parse and add plugin to registry
-    }
-  }
 }
