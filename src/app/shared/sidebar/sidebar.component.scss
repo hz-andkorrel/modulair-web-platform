@@ -1,0 +1,132 @@
+.sidenav-container {
+  height: 100vh;
+}
+
+.sidenav {
+  width: 280px;
+  background-color: #fafafa;
+  border-right: 1px solid #e0e0e0;
+  border-radius: 0 !important;
+}
+
+mat-toolbar {
+  background-color: #fff;
+  color: #424242;
+  border-bottom: 1px solid #e0e0e0;
+  font-weight: 600;
+  font-size: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border-radius: 0 !important;
+}
+
+.home-toolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+mat-nav-list {
+  padding: 0;
+  
+  .mat-mdc-list-item {
+    border-radius: 0 !important;
+  }
+  
+  .mat-mdc-list-item-content {
+    border-radius: 0 !important;
+  }
+  
+  .category-item {
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #e0e0e0;
+    font-weight: 500;
+    color: #2c2c2c;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 0 !important;
+    
+    &:hover {
+      background-color: rgba(63, 81, 181, 0.04);
+    }
+    
+    span[matListItemTitle] {
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    span[matListItemMeta] {
+      font-weight: bold;
+      font-size: 16px;
+      color: #666;
+      min-width: 20px;
+      text-align: center;
+    }
+  }
+  
+  .plugin-item {
+    padding-left: 32px !important;
+    background-color: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    border-left: 3px solid transparent;
+    color: #555;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-radius: 0 !important;
+    
+    &:hover {
+      background-color: rgba(63, 81, 181, 0.04);
+      
+      span[matListItemTitle] {
+        color: #333;
+      }
+    }
+    
+    &:active,
+    &.active {
+      background-color: rgba(63, 81, 181, 0.08);
+      color: #333;
+      
+      span[matListItemTitle] {
+        color: #333;
+        font-weight: 500;
+      }
+    }
+    
+    span[matListItemTitle] {
+      font-size: 13px;
+      color: #666;
+      transition: color 0.2s ease;
+    }
+  }
+}
+
+.plugin-list {
+  background-color: #fff;
+  
+  border-left: 2px solid #f0f0f0;
+  margin-left: 16px;
+}
+
+mat-sidenav-content {
+  .content {
+    padding: 20px;
+    background-color: #fafafa;
+    min-height: calc(100vh - 64px);
+  }
+}
+
+mat-toolbar[color="primary"] {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  
+  button[mat-icon-button] {
+    margin-right: 8px;
+  }
+  
+  span {
+    font-weight: 500;
+  }
+}
