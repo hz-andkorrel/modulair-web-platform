@@ -36,7 +36,7 @@ export class SidebarComponent {
   expandedCategories: Set<string> = new Set();
   registryCategories = categories;
   
-  // Signal to track current route
+  // Signal to track route
   private currentRoute = signal('/plugin1');
   
   pageTitle = computed(() => {
