@@ -1,11 +1,20 @@
 <div class="registry-container">
   <div class="header">
-    <h1>Plugins</h1>
-    <p>{{ filteredPlugins().length }} plugins available</p>
-
-    <!-- Search Field -->
-    <div class="search-container">
-      <mat-form-field class="search-field" appearance="outline">
+    <div style="display: flex; align-items: center; width: 100%; gap: 1rem;">
+      <div style="flex: 1; display: flex; align-items: baseline; gap: 1rem;">
+        <h1 style="margin: 0;">Plugins</h1>
+        <p style="margin: 0; color: #888;">{{ filteredPlugins().length }} plugins available</p>
+      </div>
+      <div class="upload-plugin" style="margin-left: auto;">
+        <button mat-raised-button color="primary" (click)="fileInput.click()">
+          <mat-icon>upload</mat-icon>
+          Upload Plugin
+        </button>
+        <input #fileInput type="file" hidden (change)="onPluginUpload($event)" />
+      </div>
+    </div>
+    <div class="header-content" style="display: flex; align-items: center; gap: 1rem; width: 100%; margin-top: 1rem;">
+      <mat-form-field class="search-field" appearance="outline" style="flex: 1;">
         <mat-label>Search plugins</mat-label>
         <input
           matInput
@@ -16,33 +25,31 @@
         />
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
-
-      <!-- Filter Chips - moved closer to search input -->
-      <div class="filter-chips">
-        <span class="chips-label"></span>
-        @for (tag of availableFilterTags(); track tag) {
+    </div>
+    <div class="filter-chips" style="margin-top: 0.5rem;">
+      <span class="chips-label"></span>
+      @for (tag of availableFilterTags(); track tag) {
         <mat-chip [class.selected]="selectedTags().includes(tag)" (click)="toggleTag(tag)">
           {{ tag }}
         </mat-chip>
-        }
-      </div>
-
-      <!-- Search Autocomplete -->
-      <mat-autocomplete #auto="matAutocomplete">
-        @for (suggestion of searchSuggestions(); track suggestion) {
-        <mat-option [value]="suggestion" (onSelectionChange)="onSuggestionSelected(suggestion)">
-          <div class="suggestion-item">
-            <mat-icon>search</mat-icon>
-            <span>{{ suggestion }}</span>
-          </div>
-        </mat-option>
-        } @if (searchSuggestions().length === 0 && searchTerm().length >= 2) {
-        <mat-option disabled>
-          <em>No suggestions found</em>
-        </mat-option>
-        }
-      </mat-autocomplete>
+      }
     </div>
+
+    <!-- Search Autocomplete -->
+    <mat-autocomplete #auto="matAutocomplete">
+      @for (suggestion of searchSuggestions(); track suggestion) {
+      <mat-option [value]="suggestion" (onSelectionChange)="onSuggestionSelected(suggestion)">
+        <div class="suggestion-item">
+          <mat-icon>search</mat-icon>
+          <span>{{ suggestion }}</span>
+        </div>
+      </mat-option>
+      } @if (searchSuggestions().length === 0 && searchTerm().length >= 2) {
+      <mat-option disabled>
+        <em>No suggestions found</em>
+      </mat-option>
+      }
+    </mat-autocomplete>
   </div>
 
   <mat-list class="plugin-list">
@@ -66,7 +73,7 @@
         <button mat-icon-button [matMenuTriggerFor]="pluginMenu" aria-label="More options">
           <mat-icon>more_vert</mat-icon>
         </button>
-        
+
         <mat-menu #pluginMenu="matMenu">
           <button mat-menu-item>
             <mat-icon>info</mat-icon>
