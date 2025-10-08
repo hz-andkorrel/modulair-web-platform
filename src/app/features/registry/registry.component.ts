@@ -98,7 +98,7 @@ export class RegistryComponent {
     }
   ]);
 
-  availableFilterTags = signal(['All', 'Development', 'Productivity', 'Customization']);
+  availableFilterTags = signal(['Development', 'Productivity', 'Customization']);
 
   filteredPlugins = computed(() => {
     const term = this.searchTerm().toLowerCase();
@@ -112,7 +112,6 @@ export class RegistryComponent {
         plugin.tags.some(tag => tag.toLowerCase().includes(term));
       
       const matchesCategory = selectedCategories.length === 0 || 
-        selectedCategories.includes('All') ||
         selectedCategories.includes(plugin.category);
       
       return matchesSearch && matchesCategory;
@@ -174,11 +173,21 @@ export class RegistryComponent {
       
       if (currentTags.includes(tag)) {
         newTags = newTags.filter(t => t !== tag);
-      } else {
+      }
+      else {
         newTags = [...newTags, tag];
       }
-      
       this.selectedTags.set(newTags);
+    }
+  }
+
+  onPluginUpload(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      // For now, just log the file. You can add logic to process or store the plugin file.
+      console.log('Plugin file uploaded:', file);
+      // TODO: Add logic to parse and add plugin to registry
     }
   }
 }

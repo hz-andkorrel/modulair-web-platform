@@ -1,7 +1,18 @@
 <div class="registry-container">
   <div class="header">
-    <h1>Plugins</h1>
-    <p>{{ filteredPlugins().length }} plugins available</p>
+    <div style="display: flex; align-items: center; width: 100%; gap: 1rem;">
+      <div style="flex: 1; display: flex; align-items: baseline; gap: 1rem;">
+        <h1 style="margin: 0;">Plugins</h1>
+        <p style="margin: 0; color: #888;">{{ filteredPlugins().length }} plugins available</p>
+      </div>
+      <div class="upload-plugin" style="margin-left: auto;">
+        <button mat-raised-button color="primary" (click)="fileInput.click()">
+          <mat-icon>upload</mat-icon>
+          Upload Plugin
+        </button>
+        <input #fileInput type="file" hidden (change)="onPluginUpload($event)" />
+      </div>
+    </div>
 
     <!-- Search Field -->
     <div class="search-container">
