@@ -24,7 +24,6 @@ export interface AddWidgetData {
   ],
   template: `
     <div class="sheet">
-      <!-- Header -->
       <div class="header">
         <span class="pill">widgets</span>
 
@@ -37,14 +36,12 @@ export interface AddWidgetData {
         </mat-form-field>
       </div>
 
-      <!-- Body: lijst met uitklapbare plugin-balken -->
       <div class="body">
         <mat-accordion multi>
           <mat-expansion-panel
             class="plugin-panel"
             *ngFor="let p of data.plugins">
 
-            <!-- Balk met plugin-naam -->
             <mat-expansion-panel-header>
               <div class="plugin-bar">
                 <div class="plugin-title">{{ p.name }}</div>
@@ -52,7 +49,6 @@ export interface AddWidgetData {
               </div>
             </mat-expansion-panel-header>
 
-            <!-- Open toestand: rij met 3 widget-previews -->
             <div class="widget-row">
               <mat-card class="widget-card"
                         *ngFor="let w of filter(p.widgets)"
@@ -93,6 +89,7 @@ export interface AddWidgetData {
       border-radius: 24px;
       box-shadow: 0 8px 24px rgba(0,0,0,.08);
       overflow: hidden;
+      height: 80vh;
     }
 
     .header {
@@ -112,7 +109,7 @@ export interface AddWidgetData {
 
     .body {
         flex: 1;
-        overflow-y: auto;
+        overflow-y: scroll;
         padding: 16px;
         display: flex;
         flex-direction: column;
