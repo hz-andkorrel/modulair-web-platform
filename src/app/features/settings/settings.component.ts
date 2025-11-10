@@ -7,5 +7,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SettingsComponent {
-  
+ templateurl = `./settings.component.html`;
+ styleurl = `./settings.component.scss`;
 }

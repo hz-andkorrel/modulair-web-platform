@@ -1,8 +1,36 @@
 <!-- Settings component content -->
 <div class="settings-container">
+  <div class="sheet">
   <h1>Settings</h1>
-  <p>Application settings and configuration options will go here...</p>
-  
+  <div class="settings-box">
+    <label for="hotel-name">Hotelnaam</label>
+    <input id="hotel-name" name="hotelName" type="text" class="settings-input" placeholder="Vul hotelnaam in" aria-label="Hotelnaam">
+  </div>
+
+  <div class="settings-box">
+    <label for="hotel-description">Hotelbeschrijving</label>
+    <textarea id="hotel-description" name="hotelDescription" class="settings-textarea" rows="4" placeholder="Beschrijf het hotel" aria-label="Hotelbeschrijving"></textarea>
+  </div>
+
+  <div class="settings-box">
+    <label for="hotel-address">Hoteladres</label>
+    <textarea id="hotel-address" name="hotelAddress" class="settings-textarea" rows="2" placeholder="Straat, postcode, stad" aria-label="Hoteladres"></textarea>
+  </div>
+
+  <div class="settings-box">
+    <label for="hotel-contact">Hotelcontactgegevens</label>
+    <input id="hotel-contact" name="hotelContact" type="text" class="settings-input" placeholder="Telefoon en/of e-mail" aria-label="Hotelcontactgegevens">
+  </div>
+
+  <div class="settings-box">
+    <span>Incheck- en uitchecktijden</span>
+    <div class="check-times">
+      <label for="check-in">Incheck</label>
+      <input id="check-in" name="checkIn" type="time" class="settings-time" aria-label="Inchecktijd">
+      <label for="check-out">Uitcheck</label>
+      <input id="check-out" name="checkOut" type="time" class="settings-time" aria-label="Uitchecktijd">
+    </div>
+  </div>
   <div class="settings-section">
     <h2>Preferences</h2>
     <p>User preferences and customization options</p>
@@ -12,4 +40,5 @@
     <h2>Plugin Management</h2>
     <p>Plugin configuration and management settings</p>
   </div>
+</div>
 </div>
