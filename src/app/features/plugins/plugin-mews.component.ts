@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
+import { MatDivider } from '@angular/material/divider';
 
 @Component({
   selector: 'app-plugin-mews',
+  imports: [MatDivider],
   template: `
+    <mat-divider />
     <iframe 
       src="http://localhost:8080/render"
-      style="width: 100%; height: 100vh; border: none;">
+      style="width: 100%; height: calc(100vh - 1px); border: none;">
     </iframe>
   `,
   styles: [`
