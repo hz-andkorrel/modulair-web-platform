@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-plugin1',
+  selector: 'app-plugin-mews',
   template: `
-    <div class="plugin-container">
-      <h1>Plugin 1</h1>
-      <p>Welcome to Plugin 1 page!</p>
-      <p>This is where Plugin 1 functionality would be implemented.</p>
-    </div>
+    <iframe 
+      src="http://localhost:8080/render"
+      style="width: 100%; height: 100vh; border: none;">
+    </iframe>
   `,
   styles: [`
     .plugin-container {
@@ -23,4 +22,4 @@ import { Component } from '@angular/core';
     }
   `]
 })
-export class Plugin1Component {}
+export class PluginMewsComponent {}
