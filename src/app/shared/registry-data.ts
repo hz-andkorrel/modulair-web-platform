@@ -13,24 +13,24 @@ export interface Plugin {
 
 export const plugins = signal<Plugin[]>([
   {
-    id: 'theme-manager',
-    name: 'Theme Manager',
+    id: 'key-plugin',
+    name: 'Room Key Unlock',
     version: '2.1.0',
     size: '4.2 MB',
-    lastUpdated: '2024-09-15',
-    category: 'Customization',
+    lastUpdated: '2025-11-23',
+    category: 'Smart Access Control',
     description: 'Manage and switch between different themes',
-    tags: ['themes', 'ui', 'customization']
+    tags: ['themes', 'ui', 'customization'],
   },
   {
-    id: 'git-helper',
-    name: 'Git Helper',
+    id: 'mews-plugin',
+    name: 'Mews Plugin',
     version: '1.8.3',
     size: '2.1 MB',
     lastUpdated: '2024-09-10',
-    category: 'Development',
-    description: 'Enhanced Git integration and workflow tools',
-    tags: ['git', 'version-control', 'development']
+    category: 'Smart Access Control',
+    description: 'Mews is a cloud-based property management system (PMS) used mainly in hotels',
+    tags: ['smart access control'],
   },
   {
     id: 'code-formatter',
@@ -40,7 +40,7 @@ export const plugins = signal<Plugin[]>([
     lastUpdated: '2024-09-05',
     category: 'Development',
     description: 'Auto-format code in multiple languages',
-    tags: ['formatting', 'code-quality', 'development']
+    tags: ['formatting', 'code-quality', 'development'],
   },
   {
     id: 'file-manager',
@@ -50,7 +50,7 @@ export const plugins = signal<Plugin[]>([
     lastUpdated: '2024-08-28',
     category: 'Productivity',
     description: 'Enhanced file browsing and management features',
-    tags: ['files', 'productivity', 'navigation']
+    tags: ['files', 'productivity', 'navigation'],
   },
   {
     id: 'terminal-plus',
@@ -60,8 +60,8 @@ export const plugins = signal<Plugin[]>([
     lastUpdated: '2024-08-20',
     category: 'Development',
     description: 'Advanced terminal with additional features',
-    tags: ['terminal', 'cli', 'development']
+    tags: ['terminal', 'cli', 'development'],
   },
 ]);
 
-export const categories = signal<string[]>([...new Set(plugins().map(p => p.category))]);
+export const categories = signal<string[]>([...new Set(plugins().map((p) => p.category))]);
