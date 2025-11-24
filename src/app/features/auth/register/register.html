@@ -34,15 +34,15 @@
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Password</mat-label>
           <input matInput 
-                 [type]="hidePassword ? 'password' : 'text'" 
+                 [type]="hidePassword() ? 'password' : 'text'" 
                  formControlName="password"
                  autocomplete="new-password">
           <mat-icon matPrefix>lock</mat-icon>
           <button mat-icon-button matSuffix 
-                  (click)="hidePassword = !hidePassword" 
+                  (click)="hidePassword.set(!hidePassword())" 
                   type="button"
                   [attr.aria-label]="'Hide password'">
-            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-icon>{{hidePassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
           @if (registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched) {
             <mat-error>Password is required</mat-error>
@@ -55,15 +55,15 @@
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Confirm Password</mat-label>
           <input matInput 
-                 [type]="hideConfirmPassword ? 'password' : 'text'" 
+                 [type]="hideConfirmPassword() ? 'password' : 'text'" 
                  formControlName="confirmPassword"
                  autocomplete="new-password">
           <mat-icon matPrefix>lock</mat-icon>
           <button mat-icon-button matSuffix 
-                  (click)="hideConfirmPassword = !hideConfirmPassword" 
+                  (click)="hideConfirmPassword.set(!hideConfirmPassword())" 
                   type="button"
                   [attr.aria-label]="'Hide password'">
-            <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-icon>{{hideConfirmPassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
           @if (registerForm.get('confirmPassword')?.hasError('required') && registerForm.get('confirmPassword')?.touched) {
             <mat-error>Please confirm your password</mat-error>
@@ -73,10 +73,10 @@
           }
         </mat-form-field>
 
-        @if (error) {
+        @if (error()) {
           <div class="error-message">
             <mat-icon>error</mat-icon>
-            <span>{{ error }}</span>
+            <span>{{ error() }}</span>
           </div>
         }
 
@@ -84,8 +84,8 @@
                 color="primary" 
                 type="submit" 
                 class="full-width register-button"
-                [disabled]="registerForm.invalid || loading">
-          @if (loading) {
+                [disabled]="registerForm.invalid || loading()">
+          @if (loading()) {
             <mat-spinner diameter="20"></mat-spinner>
           } @else {
             Create Account

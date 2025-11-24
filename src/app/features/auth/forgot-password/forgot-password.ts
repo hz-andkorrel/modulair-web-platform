@@ -11,7 +11,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
-  selector: 'app-register',
+  selector: 'app-forgot-password',
   standalone: true,
   imports: [
     CommonModule,
@@ -24,54 +24,44 @@ import { AuthService } from '../../../core/services/auth.service';
     MatIconModule,
     MatProgressSpinnerModule
   ],
-  templateUrl: './register.html',
-  styleUrl: './register.scss'
+  templateUrl: './forgot-password.html',
+  styleUrl: './forgot-password.scss'
 })
-export class RegisterComponent {
+export class ForgotPasswordComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  registerForm: FormGroup;
+  forgotPasswordForm: FormGroup;
   loading = signal(false);
   error = signal('');
-  hidePassword = signal(true);
-  hideConfirmPassword = signal(true);
+  success = signal(false);
 
   constructor() {
-    this.registerForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]]
-    }, { validators: this.passwordMatchValidator });
-  }
-
-  passwordMatchValidator(g: FormGroup) {
-    const password = g.get('password')?.value;
-    const confirmPassword = g.get('confirmPassword')?.value;
-    return password === confirmPassword ? null : { mismatch: true };
+    this.forgotPasswordForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]]
+    });
   }
 
   onSubmit(): void {
-    if (this.registerForm.valid) {
+    if (this.forgotPasswordForm.valid) {
       this.loading.set(true);
       this.error.set('');
 
-      const { confirmPassword, ...userData } = this.registerForm.value;
-
-      this.authService.register(userData).subscribe({
+      this.authService.forgotPassword(this.forgotPasswordForm.value.email).subscribe({
         next: () => {
-          this.router.navigate(['/dashboard']);
+          this.loading.set(false);
+          this.success.set(true);
         },
         error: (err) => {
           this.loading.set(false);
-          this.error.set(err.error?.message || 'Registration failed. Please try again.');
-        },
-        complete: () => {
-          this.loading.set(false);
+          this.error.set(err.error?.message || 'Failed to send reset email. Please try again.');
         }
       });
     }
+  }
+
+  backToLogin(): void {
+    this.router.navigate(['/login']);
   }
 }

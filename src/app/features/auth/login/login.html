@@ -22,16 +22,16 @@
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Password</mat-label>
           <input matInput 
-                 [type]="hidePassword ? 'password' : 'text'" 
+                 [type]="hidePassword() ? 'password' : 'text'" 
                  formControlName="password"
                  autocomplete="current-password">
           <mat-icon matPrefix>lock</mat-icon>
           <button mat-icon-button matSuffix 
-                  (click)="hidePassword = !hidePassword" 
+                  (click)="hidePassword.set(!hidePassword())" 
                   type="button"
                   [attr.aria-label]="'Hide password'" 
-                  [attr.aria-pressed]="hidePassword">
-            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  [attr.aria-pressed]="hidePassword()">
+            <mat-icon>{{hidePassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
           @if (loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched) {
             <mat-error>Password is required</mat-error>
@@ -41,10 +41,10 @@
           }
         </mat-form-field>
 
-        @if (error) {
+        @if (error()) {
           <div class="error-message">
             <mat-icon>error</mat-icon>
-            <span>{{ error }}</span>
+            <span>{{ error() }}</span>
           </div>
         }
 
@@ -52,13 +52,17 @@
                 color="primary" 
                 type="submit" 
                 class="full-width login-button"
-                [disabled]="loginForm.invalid || loading">
-          @if (loading) {
+                [disabled]="loginForm.invalid || loading()">
+          @if (loading()) {
             <mat-spinner diameter="20"></mat-spinner>
           } @else {
             Sign In
           }
         </button>
+
+        <div class="forgot-password-link">
+          <a routerLink="/forgot-password">Forgot password?</a>
+        </div>
 
         <div class="register-link">
           Don't have an account? 
