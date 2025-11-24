@@ -50,7 +50,7 @@ export class RegistryComponent {
   plugins = signal<Plugin[]>([
     {
       id: 'key-plugin',
-      name: 'Room Key Unlock',
+      name: 'Room Key',
       version: '2.1.0',
       size: '4.2 MB',
       lastUpdated: '2025-11-23',

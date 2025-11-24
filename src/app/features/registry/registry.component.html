@@ -60,7 +60,11 @@
     <mat-list-item class="plugin-item">
       <div class="plugin-content">
         <div class="plugin-icon">
-
+          @if (plugin.id === 'mews-plugin') {
+          <img src="mews-logo.png" alt="Mews Plugin" class="plugin-logo" />
+          } @if (plugin.id === 'key-plugin') {
+          <img src="key-logo.png" alt="Key Plugin" class="plugin-logo" />
+          }
         </div>
 
         <div class="plugin-info">
