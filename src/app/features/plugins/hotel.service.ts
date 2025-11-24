@@ -17,6 +17,20 @@ export interface Room {
   providedIn: 'root'
 })
 export class HotelService {
+  private formatDate() {
+    const d = new Date();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    const year = d.getFullYear();
+
+    let hours = d.getHours();
+    const minutes = String(d.getMinutes()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
+
+    return `${month}/${day}/${year}, ${String(hours).padStart(2, '0')}:${minutes} ${ampm}`;
+  }
+
   private guestsSignal = signal<Guest[]>([
     { name: 'Emma Jansen', checkInTime: '2025-11-24 08:30 AM', roomNumber: '101' },
     { name: 'Lucas de Vries', checkInTime: '2025-11-24 09:15 AM', roomNumber: '102' },
@@ -69,14 +83,7 @@ export class HotelService {
   });
 
   addGuest(name: string, roomNumber: string, checkInTime?: string) {
-    const time = checkInTime || new Date().toLocaleString('en-US', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: true
-    });
+    const time = checkInTime || this.formatDate();
 
     this.guestsSignal.update(guests => [...guests, { name, checkInTime: time, roomNumber }]);
   }
