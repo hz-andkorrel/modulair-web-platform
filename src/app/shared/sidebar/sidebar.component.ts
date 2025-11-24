@@ -16,15 +16,15 @@ import { filter } from 'rxjs/operators';
   imports: [
     RouterModule,
     MatSidenavModule,
-    MatToolbarModule, 
+    MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     MatListModule,
     MatTooltipModule,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.scss'
+  styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent {
   registryPlugins = plugins;
@@ -35,10 +35,10 @@ export class SidebarComponent {
   private router = inject(Router);
   expandedCategories: Set<string> = new Set();
   registryCategories = categories;
-  
+
   // Signal to track route
   private currentRoute = signal('/plugin1');
-  
+
   pageTitle = computed(() => {
     const route = this.currentRoute();
     switch (route) {
@@ -46,6 +46,10 @@ export class SidebarComponent {
         return 'Registry';
       case '/settings':
         return 'Settings';
+      case '/registry/mews-plugin':
+        return 'Mews Plugin';
+      case '/registry/key-plugin':
+        return 'Key Plugin';
       default:
         return 'Dashboard';
     }
@@ -53,11 +57,11 @@ export class SidebarComponent {
 
   constructor() {
     this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
+      .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         this.currentRoute.set(event.url);
       });
-    
+
     this.currentRoute.set(this.router.url);
   }
 
@@ -85,6 +89,5 @@ export class SidebarComponent {
     this.router.navigate(['/settings']);
   }
 
-  goProfile(): void {
-  }
+  goProfile(): void {}
 }

@@ -1,11 +1,11 @@
 <div class="registry-container">
   <div class="header">
-    <div style="display: flex; align-items: center; width: 100%; gap: 1rem;">
-      <div style="flex: 1; display: flex; align-items: baseline; gap: 1rem;">
-        <h1 style="margin: 0;">Plugins</h1>
-        <p style="margin: 0; color: #888;">{{ filteredPlugins().length }} plugins available</p>
+    <div style="display: flex; align-items: center; width: 100%; gap: 1rem">
+      <div style="flex: 1; display: flex; align-items: baseline; gap: 1rem">
+        <h1 style="margin: 0">Plugins</h1>
+        <p style="margin: 0; color: #888">{{ filteredPlugins().length }} plugins available</p>
       </div>
-      <div class="upload-plugin" style="margin-left: auto;">
+      <div class="upload-plugin" style="margin-left: auto">
         <button mat-raised-button color="primary" (click)="fileInput.click()">
           <mat-icon>upload</mat-icon>
           Upload Plugin
@@ -13,8 +13,11 @@
         <input #fileInput type="file" hidden (change)="onPluginUpload($event)" />
       </div>
     </div>
-    <div class="header-content" style="display: flex; align-items: center; gap: 1rem; width: 100%; margin-top: 1rem;">
-      <mat-form-field class="search-field" appearance="outline" style="flex: 1;">
+    <div
+      class="header-content"
+      style="display: flex; align-items: center; gap: 1rem; width: 100%; margin-top: 1rem"
+    >
+      <mat-form-field class="search-field" appearance="outline" style="flex: 1">
         <mat-label>Search plugins</mat-label>
         <input
           matInput
@@ -26,12 +29,12 @@
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </div>
-    <div class="filter-chips" style="margin-top: 0.5rem;">
+    <div class="filter-chips" style="margin-top: 0.5rem">
       <span class="chips-label"></span>
       @for (tag of availableFilterTags(); track tag) {
-        <mat-chip [class.selected]="selectedTags().includes(tag)" (click)="toggleTag(tag)">
-          {{ tag }}
-        </mat-chip>
+      <mat-chip [class.selected]="selectedTags().includes(tag)" (click)="toggleTag(tag)">
+        {{ tag }}
+      </mat-chip>
       }
     </div>
 
@@ -57,7 +60,7 @@
     <mat-list-item class="plugin-item">
       <div class="plugin-content">
         <div class="plugin-icon">
-          <!-- Icon placeholder - can be filled later -->
+
         </div>
 
         <div class="plugin-info">

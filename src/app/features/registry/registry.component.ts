@@ -56,7 +56,7 @@ export class RegistryComponent {
       lastUpdated: '2025-11-23',
       category: 'Smart Access Control',
       description: 'Unlocks the room door for guests.',
-      tags: ['smart access control']
+      tags: ['smart access control'],
     },
     {
       id: 'mews-plugin',
