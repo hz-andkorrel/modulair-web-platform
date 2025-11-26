@@ -3,16 +3,27 @@ import { Plugin1Component } from './features/plugins/plugin1.component';
 import { RegistryComponent } from './features/registry/registry.component';
 import { SettingsComponent } from './features/settings/settings.component';
 import { authGuard } from './core/guards/auth.guard';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
 
 export const routes: Routes = [
+  // Auth routes without sidebar
   { path: 'login', loadComponent: () => import('./features/auth/login/login.component').then(m => m.LoginComponent) },
   { path: 'register', loadComponent: () => import('./features/auth/register/register.component').then(m => m.RegisterComponent) },
   { path: 'forgot-password', loadComponent: () => import('./features/auth/forgot-password/forgot-password').then(m => m.ForgotPasswordComponent) },
   { path: 'reset-password', loadComponent: () => import('./features/auth/reset-password/reset-password').then(m => m.ResetPasswordComponent) },
-  { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
-  { path: 'dashboard', loadComponent: () => import('./dashboard/dashboard').then(m => m.DashboardComponent), canActivate: [authGuard] },
-  { path: 'registry', component: RegistryComponent, canActivate: [authGuard] },
-  { path: 'settings', component: SettingsComponent, canActivate: [authGuard] },
-  { path: 'plugin1', component: Plugin1Component, canActivate: [authGuard] },
+  
+  // Protected routes with sidebar
+  {
+    path: '',
+    component: SidebarComponent,
+    canActivate: [authGuard],
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+      { path: 'dashboard', loadComponent: () => import('./dashboard/dashboard').then(m => m.DashboardComponent) },
+      { path: 'registry', component: RegistryComponent },
+      { path: 'settings', component: SettingsComponent },
+      { path: 'plugin1', component: Plugin1Component },
+    ]
+  },
   { path: '**', redirectTo: '/login' }
 ];
