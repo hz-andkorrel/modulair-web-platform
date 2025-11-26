@@ -39,6 +39,22 @@ mat-form-field {
   margin-bottom: 16px;
 }
 
+.password-strength {
+  margin: -8px 0 16px 0;
+  
+  mat-progress-bar {
+    height: 4px;
+    border-radius: 2px;
+  }
+  
+  .strength-label {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+}
+
 .register-button {
   margin-top: 16px;
   height: 48px;

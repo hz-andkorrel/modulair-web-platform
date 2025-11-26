@@ -52,6 +52,19 @@
           }
         </mat-form-field>
 
+        @if (passwordValue()) {
+          <div class="password-strength">
+            <mat-progress-bar 
+              mode="determinate" 
+              [value]="passwordStrength().score"
+              [color]="passwordStrength().color">
+            </mat-progress-bar>
+            <span class="strength-label" [style.color]="passwordStrength().color === 'warn' ? '#f44336' : passwordStrength().color === 'accent' ? '#ff9800' : '#4caf50'">
+              {{ passwordStrength().label }}
+            </span>
+          </div>
+        }
+
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Confirm Password</mat-label>
           <input matInput 

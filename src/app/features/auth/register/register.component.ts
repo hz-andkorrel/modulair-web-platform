@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -8,7 +8,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AuthService } from '../../../core/services/auth.service';
+
+interface PasswordStrength {
+  score: number;
+  label: string;
+  color: string;
+}
 
 @Component({
   selector: 'app-register',
@@ -22,7 +29,8 @@ import { AuthService } from '../../../core/services/auth.service';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatProgressBarModule
   ],
   templateUrl: './register.html',
   styleUrl: './register.scss'
@@ -37,6 +45,28 @@ export class RegisterComponent {
   error = signal('');
   hidePassword = signal(true);
   hideConfirmPassword = signal(true);
+  passwordValue = signal('');
+
+  passwordStrength = computed<PasswordStrength>(() => {
+    const password = this.passwordValue();
+    if (!password) return { score: 0, label: '', color: '' };
+
+    let score = 0;
+    
+    // Length
+    if (password.length >= 8) score++;
+    if (password.length >= 12) score++;
+    
+    // Character types
+    if (/[a-z]/.test(password)) score++;
+    if (/[A-Z]/.test(password)) score++;
+    if (/[0-9]/.test(password)) score++;
+    if (/[^a-zA-Z0-9]/.test(password)) score++;
+
+    if (score <= 2) return { score: 33, label: 'Weak', color: 'warn' };
+    if (score <= 4) return { score: 66, label: 'Medium', color: 'accent' };
+    return { score: 100, label: 'Strong', color: 'primary' };
+  });
 
   constructor() {
     this.registerForm = this.fb.group({
@@ -45,6 +75,11 @@ export class RegisterComponent {
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]]
     }, { validators: this.passwordMatchValidator });
+
+    // Track password changes for strength indicator
+    this.registerForm.get('password')?.valueChanges.subscribe(value => {
+      this.passwordValue.set(value || '');
+    });
   }
 
   passwordMatchValidator(g: FormGroup) {
