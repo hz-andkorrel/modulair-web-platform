@@ -1,59 +1,94 @@
-# Hamkaas
+# Authentication Frontend - Hotel Hub
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.3.
+Angular authentication and authorization frontend for the Hotel Hub modulair web platform.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- ✅ **Login & Registration** - Complete authentication flow
+- ✅ **JWT Token Management** - Secure token storage and handling
+- ✅ **Protected Routes** - Auth guard preventing unauthorized access
+- ✅ **HTTP Interceptor** - Automatic JWT token injection in requests
+- ✅ **User Profile Menu** - Display user info with logout functionality
+- ✅ **Material Design** - Modern, responsive UI
+
+## Prerequisites
+
+- Node.js v20.19 or higher (tested with v24.11.1)
+- npm v11.6+
+- **Backend**: Auth-service running on `http://localhost:8080` (see backend team)
+
+## Getting Started
+
+### 1. Install Dependencies
 
 ```bash
-ng serve
+npm install
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 2. Start Development Server
 
 ```bash
-ng generate component component-name
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+The application will be available at `http://localhost:4200/`
 
-```bash
-ng generate --help
+### 3. Login with Demo Credentials
+
+```
+Email: user@example.com
+Password: password
 ```
 
-## Building
+## Backend Integration
 
-To build the project run:
+This frontend connects to the auth-service backend API:
+- **API URL**: `http://localhost:8080`
+- **Endpoints**: `/auth/login`, `/auth/register`, `/auth/logout`
+
+Make sure the auth-service backend is running before starting the frontend. Contact the backend team for setup instructions.
+
+Make sure the auth-service backend is running before starting the frontend. Contact the backend team for setup instructions.
+
+## Project Structure
+
+```
+src/app/
+├── core/
+│   ├── guards/          # Auth guard for route protection
+│   ├── interceptors/    # HTTP interceptor for JWT tokens
+│   ├── models/          # User and auth interfaces
+│   └── services/        # Authentication service
+├── features/
+│   └── auth/            # Login & register components
+└── shared/
+    └── sidebar/         # Navigation with user menu
+```
+
+## Configuration
+
+Update API URL in `src/environments/environment.ts`:
+
+```typescript
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:8080'
+};
+```
+
+## Building for Production
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## Documentation
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+For detailed authentication flow and API documentation, see [AUTHENTICATION_GUIDE.md](./AUTHENTICATION_GUIDE.md).
 
 ## Additional Resources
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- [Angular CLI Documentation](https://angular.dev/tools/cli)
+- [Angular Material Components](https://material.angular.io)
