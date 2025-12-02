@@ -6,7 +6,7 @@ export interface User {
 }
 
 export interface LoginRequest {
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -17,9 +17,6 @@ export interface RegisterRequest {
 }
 
 export interface AuthResponse {
-  access_token: string;
-  refresh_token: string;
-  token_type: string;
+  token: string;
   expires_at: number;
-  user: User;
 }
