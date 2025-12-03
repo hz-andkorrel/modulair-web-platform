@@ -13,6 +13,7 @@ export class AuthService {
   private readonly API_URL = `${environment.apiUrl}/auth`;
   private readonly TOKEN_KEY = 'auth_token';
   private readonly USER_KEY = 'auth_user';
+  private readonly EXPIRY_KEY = 'auth_token_expiry';
 
   private currentUserSubject = new BehaviorSubject<User | null>(this.getUserFromStorage());
   public currentUser$ = this.currentUserSubject.asObservable();
@@ -48,13 +49,25 @@ export class AuthService {
     return this.http.post<{ message: string }>(`${this.API_URL}/reset-password`, { token, new_password: newPassword });
   }
 
-  // TODO: Connect with backend to verify token destruction
-  logout(): void {
-    localStorage.removeItem(this.TOKEN_KEY);
-    localStorage.removeItem(this.USER_KEY);
-    this.currentUserSubject.next(null);
-    this.isAuthenticated.set(false);
-    this.router.navigate(['/login']);
+  logout(navigate = true): void {
+    this.http.delete<{ result: boolean }>(`${this.API_URL}`).subscribe(
+      response => {
+        console.log("Response status:", response.result);
+        if (!response.result) {
+          console.error('Logout failed on the backend');
+        }
+
+        console.log("Clearing local storage and updating state");
+        localStorage.removeItem(this.TOKEN_KEY);
+        localStorage.removeItem(this.USER_KEY);
+        this.currentUserSubject.next(null);
+        this.isAuthenticated.set(false);
+
+        if (navigate) {
+          this.router.navigate(['/login']);
+        }
+      }
+    );
   }
 
   getToken(): string | null {
@@ -68,8 +81,11 @@ export class AuthService {
   // TODO: Make sure the front-end receives the user from the backend
   private handleAuthSuccess(response: AuthResponse): void {
     localStorage.setItem(this.TOKEN_KEY, response.token);
+    localStorage.setItem(this.EXPIRY_KEY, response.expires_at.toString());
+
     // localStorage.setItem(this.USER_KEY, JSON.stringify(response.user));
     // this.currentUserSubject.next(response.user);
+
     this.isAuthenticated.set(true);
   }
 
@@ -83,6 +99,16 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return this.isAuthenticated();
+    if (!this.isAuthenticated()) {
+      return false;
+    }
+
+    const expiryTime = localStorage.getItem(this.EXPIRY_KEY);
+    if (expiryTime == null || Date.parse(expiryTime) < Date.now()) {
+      this.logout(false);
+      return false;
+    }
+
+    return true;
   }
 }
