@@ -52,14 +52,12 @@ export class AuthService {
   logout(navigate = true): void {
     this.http.delete<{ result: boolean }>(`${this.API_URL}`).subscribe(
       response => {
-        console.log("Response status:", response.result);
         if (!response.result) {
-          console.error('Logout failed on the backend');
         }
 
-        console.log("Clearing local storage and updating state");
         localStorage.removeItem(this.TOKEN_KEY);
         localStorage.removeItem(this.USER_KEY);
+        localStorage.removeItem(this.EXPIRY_KEY);
         this.currentUserSubject.next(null);
         this.isAuthenticated.set(false);
 
