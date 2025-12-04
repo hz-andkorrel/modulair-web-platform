@@ -6,7 +6,7 @@ services:
       dockerfile: dockerfile
     image: docker-angular-sample
     ports:
-      - "8080:8080"
+      - "80:8080"
 
   # The development container is build on the Node iamge with the angular cli installed.
   # Instead of building an image, the folder is mounted as a volume to allow live editing.
@@ -16,5 +16,5 @@ services:
     volumes:
       - .:/app
     ports:
-      - "4200:4200"
+      - "80:4200"
     entrypoint: ["sh", "-c", "npm install && npm run start -- --host 0.0.0.0"]
