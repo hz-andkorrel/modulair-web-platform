@@ -49,24 +49,24 @@ export class RegistryComponent {
 
   plugins = signal<Plugin[]>([
     {
-      id: 'theme-manager',
-      name: 'Theme Manager',
+      id: 'key-plugin',
+      name: 'Room Key Unlock',
       version: '2.1.0',
       size: '4.2 MB',
-      lastUpdated: '2024-09-15',
-      category: 'Customization',
-      description: 'Manage and switch between different themes',
-      tags: ['themes', 'ui', 'customization']
+      lastUpdated: '2025-11-23',
+      category: 'Smart Access Control',
+      description: 'Unlocks the room door for guests.',
+      tags: ['smart access control']
     },
     {
-      id: 'git-helper',
-      name: 'Git Helper',
+      id: 'mews-plugin',
+      name: 'Mews Plugin',
       version: '1.8.3',
       size: '2.1 MB',
       lastUpdated: '2024-09-10',
-      category: 'Development',
-      description: 'Enhanced Git integration and workflow tools',
-      tags: ['git', 'version-control', 'development']
+      category: 'Smart Access Control',
+      description: 'Mews is a cloud-based property management system (PMS) used mainly in hotels',
+      tags: ['smart access control']
     },
     {
       id: 'code-formatter',
@@ -100,7 +100,7 @@ export class RegistryComponent {
     }
   ]);
 
-  availableFilterTags = signal(['Development', 'Productivity', 'Customization']);
+  availableFilterTags = signal(['Development', 'Productivity', 'Smart Access Control']);
 
   filteredPlugins = computed(() => {
     const term = this.searchTerm().toLowerCase();
