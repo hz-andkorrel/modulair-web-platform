@@ -8,8 +8,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -21,6 +24,8 @@ import { filter } from 'rxjs/operators';
     MatIconModule,
     MatListModule,
     MatTooltipModule,
+    MatMenuModule,
+    MatDividerModule,
     CommonModule
   ],
   templateUrl: './sidebar.component.html',
@@ -28,16 +33,17 @@ import { filter } from 'rxjs/operators';
 })
 export class SidebarComponent {
   registryPlugins = plugins;
-
-  getPluginsByCategory(category: string): Plugin[] {
-    return this.registryPlugins().filter((p: Plugin) => p.category === category);
-  }
   private router = inject(Router);
+  authService = inject(AuthService);
   expandedCategories: Set<string> = new Set();
   registryCategories = categories;
   
+  getPluginsByCategory(category: string): Plugin[] {
+    return this.registryPlugins().filter((p: Plugin) => p.category === category);
+  }
+
   // Signal to track route
-  private currentRoute = signal('/plugin1');
+  private currentRoute = signal('/dashboard');
   
   pageTitle = computed(() => {
     const route = this.currentRoute();
@@ -83,6 +89,10 @@ export class SidebarComponent {
 
   goSettings(): void {
     this.router.navigate(['/settings']);
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 
   goProfile(): void {
