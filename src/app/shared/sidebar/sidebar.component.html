@@ -63,9 +63,9 @@
       </button>
       <span>{{ pageTitle() }}</span>
     </mat-toolbar>
-    <!-- Your main content goes here -->
+    <!-- Router outlet for child routes -->
     <div class="content">
-      <ng-content></ng-content>
+      <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
