@@ -33,6 +33,16 @@ export const plugins = signal<Plugin[]>([
     tags: ['smart access control'],
   },
   {
+    id: 'licenseplate-plugin',
+    name: 'Car Park',
+    version: '0.1.0',
+    size: '300 KB',
+    lastUpdated: '2025-12-11',
+    category: 'Smart Access Control',
+    description: 'Car Park integration for license plate scanning and parking events',
+    tags: ['smart access control', 'license-plate', 'parking'],
+  },
+  {
     id: 'code-formatter',
     name: 'Code Formatter',
     version: '3.0.1',
