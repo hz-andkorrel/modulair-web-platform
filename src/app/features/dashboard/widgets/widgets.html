@@ -1,0 +1,55 @@
+<div class="sheet">
+  <div class="header">
+    <span class="pill">widgets</span>
+
+    <mat-form-field appearance="outline" class="search">
+      <mat-label>zoeken</mat-label>
+      <input matInput [(ngModel)]="query" placeholder="Zoek widget..." />
+      <button mat-icon-button matSuffix aria-label="zoeken">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <div class="body">
+    <mat-accordion multi>
+      <mat-expansion-panel
+        class="plugin-panel"
+        *ngFor="let p of data.plugins">
+
+        <mat-expansion-panel-header>
+          <div class="plugin-bar">
+            <div class="plugin-title">{{ p.name }}</div>
+            <mat-icon class="arrow" svgIcon=""></mat-icon>
+          </div>
+        </mat-expansion-panel-header>
+
+        <div class="widget-row">
+          <mat-card class="widget-card"
+                    *ngFor="let w of filter(p.widgets)"
+                    (click)="choose(p, w)">
+            <div class="preview-box"></div>
+            <div class="meta">
+              <div class="w-title">{{ w.title }}</div>
+              <div class="w-desc" *ngIf="w.description">{{ w.description }}</div>
+            </div>
+            <div class="actions">
+              <button mat-stroked-button color="primary">
+                <mat-icon>add</mat-icon>
+                Toevoegen
+              </button>
+            </div>
+          </mat-card>
+
+          <p *ngIf="filter(p.widgets).length === 0" class="empty">
+            Geen widgets gevonden voor deze plugin
+          </p>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <div class="footer">
+    <button mat-button mat-dialog-close>Annuleren</button>
+  </div>
+</div>

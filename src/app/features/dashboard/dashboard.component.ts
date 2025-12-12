@@ -2,24 +2,28 @@ import { Component, inject, signal } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { WidgetsComponent, WidgetDef } from './widgets/widgets';
 
 type Tile = {
   id: string;
   colspan: number;
   rowspan: number;
+  selectedWidget?: WidgetDef;
 };
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [NgFor, MatGridListModule, MatIconModule, MatDialogModule],
+  imports: [NgFor, MatGridListModule, MatIconModule, MatButtonModule, MatDialogModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
   private bp = inject(BreakpointObserver);
+  private dialog = inject(MatDialog);
 
   cols = signal(3);
 
@@ -42,5 +46,25 @@ export class DashboardComponent {
         else if (state.breakpoints[Breakpoints.Medium]) this.cols.set(3);
         else this.cols.set(4);
       });
+  }
+
+  onAdd(tile: Tile) {
+    const ref = this.dialog.open(WidgetsComponent, {
+      data: { plugins: [] },
+      width: '1440px',
+      panelClass: 'widgets-dialog'
+    });
+
+    ref.afterClosed().subscribe(result => {
+      if (!result) return;
+      const { widget } = result as { widget: WidgetDef };
+      const next = this.tiles().map(t => t.id === tile.id ? { ...t, selectedWidget: widget } : t);
+      this.tiles.set(next);
+    });
+  }
+
+  onClear(tile: Tile) {
+    const next = this.tiles().map(t => t.id === tile.id ? { ...t, selectedWidget: undefined } : t);
+    this.tiles.set(next);
   }
 }
