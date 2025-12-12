@@ -26,15 +26,10 @@ export class DashboardComponent {
   private bp = inject(BreakpointObserver);
   private dialog = inject(MatDialog);
 
-  cols = signal(4);
+  cols = signal(3);
 
   tiles = signal<Tile[]>([
-    { id: 'tile-1', colspan: 1, rowspan: 1 },
-    { id: 'tile-2', colspan: 1, rowspan: 1 },
-    { id: 'tile-3', colspan: 1, rowspan: 1 },
-    { id: 'tile-4', colspan: 1, rowspan: 1 },
-    { id: 'tile-5', colspan: 2, rowspan: 1 }, 
-    { id: 'tile-6', colspan: 2, rowspan: 2 }, 
+    { id: 'tile-1', colspan: 1, rowspan: 1 }
   ]);
 
   constructor() {

@@ -7,8 +7,7 @@ export const PLUGINS: PluginDef[] = [
     id: 'mews',
     name: 'Mews Widgets',
     widgets: [
-      { id: 'reserveringen', title: 'reserveringen', description: 'Toon reserveringen' },
-      { id: 'gearriveerd', title: 'Gearriveerde gasten', description: 'Toon gearriveerde gasten' },
+      { id: 'reserveringen', title: 'reserveringen', description: 'Toon reserveringen' }
     ],
   },
   {
