@@ -11,6 +11,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { environment } from '../../../environments/environment';
+
 
 interface Plugin {
   id: string;
@@ -167,13 +169,54 @@ export class RegistryComponent {
     }
   }
 
-  onPluginUpload(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      const file = input.files[0];
-      // For now, just log the file. You can add logic to process or store the plugin file.
-      console.log('Plugin file uploaded:', file);
-      // TODO: Add logic to parse and add plugin to registry
-    }
+  async onPluginUpload(event: Event) {
+  const input = event.target as HTMLInputElement;
+  if (!input.files || input.files.length === 0) return;
+
+  const file = input.files[0];
+
+  if (!file.name.toLowerCase().endsWith('.zip')) {
+    alert('Upload een .zip bestand.');
+    input.value = '';
+    return;
   }
-}
+
+  const formData = new FormData();
+  formData.append('file', file);
+
+  try {
+    const res = await fetch(`${environment.apiUrl}/plugin/upload`, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(text);
+    }
+
+    const result = await res.json();
+    console.log('Upload result:', result);
+    alert(`Plugin gestart: ${result.slug}`);
+
+    // Optional: show it in UI list immediately
+    this.plugins.set([
+      {
+        id: result.slug,
+        name: result.slug,
+        version: 'unknown',
+        size: 'unknown',
+        lastUpdated: new Date().toISOString().slice(0, 10),
+        category: 'Uploaded',
+        description: `Running container: ${result.containerName}`,
+        tags: ['uploaded'],
+      },
+      ...this.plugins(),
+    ]);
+  } catch (err) {
+    console.error('Upload failed:', err);
+    alert('Upload mislukt. Check backend logs.');
+  } finally {
+    input.value = '';
+  }
+}}

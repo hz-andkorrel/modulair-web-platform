@@ -19,4 +19,6 @@ describe('RegistryComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
 });
+

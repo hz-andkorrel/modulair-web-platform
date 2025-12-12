@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { PluginMewsComponent } from './features/plugins/plugin-mews.component';
 import { PluginKeyComponent } from './features/plugins/plugin-key.component';
-import { PluginCarparkComponent } from './features/plugins/plugin-carpark.component';
 import { RegistryComponent } from './features/registry/registry.component';
 import { SettingsComponent } from './features/settings/settings.component';
 import { authGuard } from './core/guards/auth.guard';
@@ -25,10 +24,8 @@ export const routes: Routes = [
       { path: 'registry', component: RegistryComponent },
       { path: 'registry/mews-plugin', component: PluginMewsComponent },
       { path: 'registry/key-plugin', component: PluginKeyComponent },
-      { path: 'registry/licenseplate-plugin', component: PluginCarparkComponent },
       { path: 'settings', component: SettingsComponent },
       { path: 'plugin-mews', component: PluginMewsComponent },
-      { path: 'plugin-car-park', component: PluginCarparkComponent },
     ]
   },
   { path: '**', redirectTo: '/login' }
