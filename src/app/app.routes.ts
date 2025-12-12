@@ -21,7 +21,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
-      { path: 'dashboard', loadComponent: () => import('./dashboard/dashboard').then(m => m.DashboardComponent) },
+      { path: 'dashboard', loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent) },
       { path: 'registry', component: RegistryComponent },
       { path: 'registry/mews-plugin', component: PluginMewsComponent },
       { path: 'registry/key-plugin', component: PluginKeyComponent },
