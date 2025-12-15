@@ -12,10 +12,13 @@
   </div>
 
   <div class="body">
-    <mat-accordion multi>
+    <div *ngIf="loading()">Loading plugins...</div>
+    <div *ngIf="error()" class="error">{{ error() }}</div>
+    
+    <mat-accordion multi *ngIf="plugins().length > 0">
       <mat-expansion-panel
         class="plugin-panel"
-        *ngFor="let p of data.plugins">
+        *ngFor="let p of plugins()">
 
         <mat-expansion-panel-header>
           <div class="plugin-bar">
@@ -47,6 +50,10 @@
         </div>
       </mat-expansion-panel>
     </mat-accordion>
+
+    <div *ngIf="!loading() && plugins().length === 0" class="empty">
+      No plugins available
+    </div>
   </div>
 
   <div class="footer">
