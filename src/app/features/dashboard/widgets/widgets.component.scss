@@ -72,23 +72,38 @@
   gap: 12px;
 }
 
-.widget-card {
+mat-card-actions {
   display: flex;
-  flex-direction: column;
-  gap: 0;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  justify-content: center;
 }
 
-.widget-card:hover {
-  box-shadow: 0 8px 16px rgba(0,0,0,.12);
-  transform: translateY(-2px);
+.widget-image {
+  width: 100%;
+  height: 120px;
+  background: rgba(0,0,0,.02);
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.image-placeholder {
+  text-align: center;
+  font-size: 14px;
+  color: #999;
+  padding: 8px;
+}
 
-.meta .w-title {
-  font-weight: 600;
+mat-card-header {
+  display: flex;
+  justify-content: center;
+  padding: 12px !important;
+}
+
+mat-card-title {
+  text-align: center;
+  font-size: 14px !important;
+  line-height: 1.2 !important;
 }
 
 .empty {
