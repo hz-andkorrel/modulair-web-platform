@@ -2,7 +2,8 @@
   <mat-grid-tile *ngFor="let t of tiles()"
                  [colspan]="t.colspan"
                  [rowspan]="t.rowspan"
-                 class="tile">
+                 class="tile"
+                 [class.widget-tile]="!!t.selectedWidget">
     <div *ngIf="!t.selectedWidget" class="placeholder">
       <div class="placeholder-content">
         <div class="label">Leeg vak</div>

@@ -5,17 +5,23 @@
 
 .tile {
   padding: 0 !important;
-}
 
-.tile .placeholder {
-  height: 100%;
-  width: 100%;
-  border: 2px dashed rgba(0,0,0,.2);
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
-  background: rgba(0,0,0,.02);
-  box-sizing: border-box;
+  .placeholder {
+    height: 100%;
+    width: 100%;
+    border: 2px dashed rgba(0,0,0,.2);
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    background: rgba(0,0,0,.02);
+    box-sizing: border-box;
+  }
+
+  &.widget-tile {
+    border: 2px solid rgba(0,0,0,.12);
+    border-radius: 12px;
+    overflow: hidden;
+  }
 }
 
 .placeholder-content {
