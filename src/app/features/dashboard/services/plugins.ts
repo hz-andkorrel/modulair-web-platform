@@ -45,6 +45,23 @@ export class PluginsService {
     const transformed = this.transformPlugins(registryPlugins());
     this.plugins.set(transformed);
     this.loading.set(false);
+
+    // Initialize with default widgets on top
+    const defaultWidgets = ['licenseplate-plugin', 'mews-plugin', 'key-plugin'];
+    const defaultTiles: Tile[] = defaultWidgets
+      .map(id => transformed.find(p => p.id === id))
+      .filter((p): p is PluginDef => !!p && p.widgets.length > 0)
+      .map((p, i) => ({
+        id: `tile-${i + 1}`,
+        colspan: p.widgets[0].colspan ?? 1,
+        rowspan: p.widgets[0].rowspan ?? 1,
+        selectedWidget: p.widgets[0]
+      }));
+
+    // Add the empty tile at the end
+    defaultTiles.push({ id: `tile-${defaultTiles.length + 1}`, colspan: 1, rowspan: 1 } as Tile);
+    this.tiles.set(defaultTiles);
+    this.tileCounter.set(defaultTiles.length + 1);
   }
 
   private transformPlugins(registryPlugins: Plugin[]): PluginDef[] {
