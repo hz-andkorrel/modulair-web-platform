@@ -3,7 +3,8 @@
                  [colspan]="t.colspan"
                  [rowspan]="t.rowspan"
                  class="tile"
-                 [class.widget-tile]="!!t.selectedWidget">
+                 [class.widget-tile]="!!t.selectedWidget"
+                 [class.hovered]="t.selectedWidget">
     <button *ngIf="t.selectedWidget" 
             mat-icon-button 
             class="delete-badge" 
