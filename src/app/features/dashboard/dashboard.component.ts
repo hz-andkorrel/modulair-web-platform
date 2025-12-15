@@ -7,13 +7,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { WidgetsComponent, WidgetDef } from './widgets/widgets.component';
 import { TableComponent } from './tables/table.component';
-
-type Tile = {
-  id: string;
-  colspan: number;
-  rowspan: number;
-  selectedWidget?: WidgetDef;
-};
+import { PluginsService, Tile } from './services/plugins';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,13 +19,14 @@ type Tile = {
 export class DashboardComponent {
   private bp = inject(BreakpointObserver);
   private dialog = inject(MatDialog);
+  protected pluginsService = inject(PluginsService);
 
   cols = signal(3);
   selectedTileId = signal<string | null>(null);
 
-  tiles = signal<Tile[]>([
-    { id: 'tile-1', colspan: 1, rowspan: 1 },
-  ]);
+  get tiles() {
+    return this.pluginsService.tiles;
+  }
 
   constructor() {
     this.bp
@@ -62,23 +57,16 @@ export class DashboardComponent {
     ref.afterClosed().subscribe(result => {
       if (!result) return;
       const { widget } = result as { widget: WidgetDef };
-      const newTile: Tile = {
-        id: `tile-${this.tileCounter() + 1}`,
-        colspan: widget.colspan ?? 1,
-        rowspan: widget.rowspan ?? 1,
-        selectedWidget: widget
-      };
-      this.tileCounter.update(c => c + 1);
-      this.tiles.update(tiles => [newTile, ...tiles]);
+      this.pluginsService.addTile(tile, widget);
     });
   }
 
   onClear(tile: Tile) {
-    const next = this.tiles().map(t => t.id === tile.id ? { ...t, selectedWidget: undefined } : t);
-    this.tiles.set(next);
+    this.pluginsService.clearTile(tile);
   }
 
   onDelete(tile: Tile) {
-    this.tiles.update(tiles => tiles.filter(t => t.id !== tile.id));
+    this.pluginsService.deleteTile(tile);
+    this.selectedTileId.set(null);
   }
 }

@@ -1,8 +1,15 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { PluginDef } from '../widgets/widgets.component';
+import { PluginDef, WidgetDef } from '../widgets/widgets.component';
 import { plugins as registryPlugins, Plugin } from '../../../shared/registry-data';
 import { TABLE_WIDGET_SIZE } from '../tables/table.component';
+
+export type Tile = {
+  id: string;
+  colspan: number;
+  rowspan: number;
+  selectedWidget?: WidgetDef;
+};
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +18,8 @@ export class PluginsService {
   plugins = signal<PluginDef[]>([]);
   loading = signal(false);
   error = signal<string | null>(null);
+  tiles = signal<Tile[]>([{ id: 'tile-1', colspan: 1, rowspan: 1 }]);
+  tileCounter = signal(1);
 
   constructor(private http: HttpClient) {
     this.loadPlugins();
@@ -51,5 +60,25 @@ export class PluginsService {
         }
       ]
     }));
+  }
+
+  addTile(tile: Tile, widget: WidgetDef) {
+    const newTile: Tile = {
+      id: `tile-${this.tileCounter() + 1}`,
+      colspan: widget.colspan ?? 1,
+      rowspan: widget.rowspan ?? 1,
+      selectedWidget: widget
+    };
+    this.tileCounter.update(c => c + 1);
+    this.tiles.update(tiles => [newTile, ...tiles]);
+  }
+
+  clearTile(tile: Tile) {
+    const next = this.tiles().map(t => t.id === tile.id ? { ...t, selectedWidget: undefined } : t);
+    this.tiles.set(next);
+  }
+
+  deleteTile(tile: Tile) {
+    this.tiles.update(tiles => tiles.filter(t => t.id !== tile.id));
   }
 }
