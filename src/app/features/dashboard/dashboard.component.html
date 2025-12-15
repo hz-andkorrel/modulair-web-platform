@@ -4,11 +4,12 @@
                  [rowspan]="t.rowspan"
                  class="tile"
                  [class.widget-tile]="!!t.selectedWidget"
-                 [class.hovered]="t.selectedWidget">
+                 [class.clicked]="selectedTileId() === t.id && !!t.selectedWidget"
+                 (click)="t.selectedWidget && (selectedTileId() === t.id ? selectedTileId.set(null) : selectedTileId.set(t.id))">
     <button *ngIf="t.selectedWidget" 
             mat-icon-button 
             class="delete-badge" 
-            (click)="onDelete(t)" 
+            (click)="onDelete(t); $event.stopPropagation()" 
             aria-label="Widget verwijderen">
       <mat-icon>remove</mat-icon>
     </button>

@@ -27,6 +27,7 @@ export class DashboardComponent {
   private dialog = inject(MatDialog);
 
   cols = signal(3);
+  selectedTileId = signal<string | null>(null);
 
   tiles = signal<Tile[]>([
     { id: 'tile-1', colspan: 1, rowspan: 1 },
