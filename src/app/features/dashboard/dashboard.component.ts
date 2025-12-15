@@ -68,7 +68,7 @@ export class DashboardComponent {
         selectedWidget: widget
       };
       this.tileCounter.update(c => c + 1);
-      this.tiles.update(tiles => [...tiles, newTile]);
+      this.tiles.update(tiles => [newTile, ...tiles]);
     });
   }
 
