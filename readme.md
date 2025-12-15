@@ -92,3 +92,9 @@ For detailed authentication flow and API documentation, see [AUTHENTICATION_GUID
 
 - [Angular CLI Documentation](https://angular.dev/tools/cli)
 - [Angular Material Components](https://material.angular.io)
+
+## Dashboard Widgets
+
+Refactored dashboard containing widgets to exist in the `/features` directory, and made components out of the dashboard, widgets and widget table.
+
+You are now able to add Widgets to the dashboard grid, and move them around. When moving or clicking on a widget it is possible to remove it from the dashboard. 
