@@ -73,35 +73,22 @@
 }
 
 .widget-card {
-  display: grid;
-  grid-template-rows: 120px auto auto;
-  gap: 8px;
-  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .widget-card:hover {
-  box-shadow: 0 3px 10px rgba(0,0,0,.06);
+  box-shadow: 0 8px 16px rgba(0,0,0,.12);
+  transform: translateY(-2px);
 }
 
-.preview-box {
-  background: #f6f7f9;
-  border: 2px solid rgba(0,0,0,.12);
-  border-radius: 12px;
-}
 
 .meta .w-title {
   font-weight: 600;
-}
-
-.meta .w-desc {
-  font-size: 12px;
-  opacity: .75;
-}
-
-.actions {
-  display: flex;
-  justify-content: flex-end;
 }
 
 .empty {

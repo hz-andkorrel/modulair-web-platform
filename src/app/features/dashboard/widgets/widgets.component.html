@@ -31,17 +31,15 @@
           <mat-card class="widget-card"
                     *ngFor="let w of filter(p.widgets)"
                     (click)="choose(p, w)">
-            <div class="preview-box"></div>
-            <div class="meta">
-              <div class="w-title">{{ w.title }}</div>
-              <div class="w-desc" *ngIf="w.description">{{ w.description }}</div>
-            </div>
-            <div class="actions">
-              <button mat-stroked-button color="primary">
+            <mat-card-header>
+              <mat-card-title>{{ w.title }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <button mat-raised-button color="primary">
                 <mat-icon>add</mat-icon>
                 Toevoegen
               </button>
-            </div>
+            </mat-card-content>
           </mat-card>
 
           <p *ngIf="filter(p.widgets).length === 0" class="empty">
