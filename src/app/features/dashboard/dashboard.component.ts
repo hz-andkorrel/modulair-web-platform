@@ -63,8 +63,8 @@ export class DashboardComponent {
       const { widget } = result as { widget: WidgetDef };
       const newTile: Tile = {
         id: `tile-${this.tileCounter() + 1}`,
-        colspan: widget.colspan ?? 2,
-        rowspan: widget.rowspan ?? 2,
+        colspan: widget.colspan ?? 1,
+        rowspan: widget.rowspan ?? 1,
         selectedWidget: widget
       };
       this.tileCounter.update(c => c + 1);

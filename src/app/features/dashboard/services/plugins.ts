@@ -2,6 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PluginDef } from '../widgets/widgets.component';
 import { plugins as registryPlugins, Plugin } from '../../../shared/registry-data';
+import { TABLE_WIDGET_SIZE } from '../tables/table.component';
 
 @Injectable({
   providedIn: 'root',
@@ -45,8 +46,8 @@ export class PluginsService {
         {
           id: plugin.id,
           title: plugin.widget,
-          colspan: 2,
-          rowspan: 2
+          type: 'table',
+          ...TABLE_WIDGET_SIZE
         }
       ]
     }));
