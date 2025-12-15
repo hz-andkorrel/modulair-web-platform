@@ -4,13 +4,23 @@
   height: 100%;
 }
 
+.table-container {
+  position: relative;
+  height: 100%;
+}
+
 .table-divider {
-  width: 90%;
   height: 2px;
   background-color: rgba(0, 0, 0, 0.12);
   margin: 0 auto;
 }
 
 table {
-  width: 100%;
+  width: 90%;
+  background-color: transparent;
+  padding: 0 5%;
+}
+
+th, td {
+  border-bottom-color: rgba(0, 0, 0, 0.12);
 }

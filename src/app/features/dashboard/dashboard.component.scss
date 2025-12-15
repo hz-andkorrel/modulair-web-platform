@@ -20,7 +20,7 @@
   &.widget-tile {
     border: 2px solid rgba(0,0,0,.12);
     border-radius: 12px;
-    overflow: hidden;
+    overflow: visible;
   }
 }
 
@@ -34,4 +34,37 @@
 .label {
   font-size: 13px;
   opacity: .7;
+}
+
+.delete-badge {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  z-index: 20;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #ccc;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #999;
+  }
+
+  mat-icon {
+    font-size: 19px;
+    width: 19px;
+    height: 19px;
+  }
+}
+
+.widget-content {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 12px;
 }

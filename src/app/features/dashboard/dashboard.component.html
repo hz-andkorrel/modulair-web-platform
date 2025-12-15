@@ -4,6 +4,14 @@
                  [rowspan]="t.rowspan"
                  class="tile"
                  [class.widget-tile]="!!t.selectedWidget">
+    <button *ngIf="t.selectedWidget" 
+            mat-icon-button 
+            class="delete-badge" 
+            (click)="onDelete(t)" 
+            aria-label="Widget verwijderen">
+      <mat-icon>remove</mat-icon>
+    </button>
+
     <div *ngIf="!t.selectedWidget" class="placeholder">
       <div class="placeholder-content">
         <div class="label">Leeg vak</div>
@@ -14,6 +22,8 @@
       </div>
     </div>
 
-    <app-table *ngIf="t.selectedWidget" [widget]="t.selectedWidget!" (close)="onClear(t)"></app-table>
+    <div class="widget-content" *ngIf="t.selectedWidget">
+      <app-table [widget]="t.selectedWidget!" (close)="onClear(t)"></app-table>
+    </div>
   </mat-grid-tile>
 </mat-grid-list>

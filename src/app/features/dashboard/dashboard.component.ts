@@ -76,4 +76,8 @@ export class DashboardComponent {
     const next = this.tiles().map(t => t.id === tile.id ? { ...t, selectedWidget: undefined } : t);
     this.tiles.set(next);
   }
+
+  onDelete(tile: Tile) {
+    this.tiles.update(tiles => tiles.filter(t => t.id !== tile.id));
+  }
 }
