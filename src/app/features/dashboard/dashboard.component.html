@@ -1,11 +1,15 @@
-<mat-grid-list [cols]="cols()" rowHeight="160px" gutterSize="16px" class="board">
+<mat-grid-list [cols]="cols()" rowHeight="160px" gutterSize="16px" class="board"
+               cdkDropList
+               [cdkDropListData]="tiles()"
+               (cdkDropListDropped)="onDrop($event)">
   <mat-grid-tile *ngFor="let t of tiles()"
                  [colspan]="t.colspan"
                  [rowspan]="t.rowspan"
                  class="tile"
                  [class.widget-tile]="!!t.selectedWidget"
                  [class.clicked]="selectedTileId() === t.id && !!t.selectedWidget"
-                 (click)="t.selectedWidget && (selectedTileId() === t.id ? selectedTileId.set(null) : selectedTileId.set(t.id))">
+                 (click)="t.selectedWidget && (selectedTileId() === t.id ? selectedTileId.set(null) : selectedTileId.set(t.id))"
+                 cdkDrag>
     <button *ngIf="t.selectedWidget" 
             mat-icon-button 
             class="delete-badge" 

@@ -4,6 +4,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { WidgetsComponent, WidgetDef } from './widgets/widgets.component';
 import { TableComponent } from './tables/table.component';
@@ -12,7 +13,7 @@ import { PluginsService, Tile } from './services/plugins';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [NgFor, NgIf, MatGridListModule, MatIconModule, MatButtonModule, MatDialogModule, TableComponent],
+  imports: [NgFor, NgIf, MatGridListModule, MatIconModule, MatButtonModule, MatDialogModule, DragDropModule, TableComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
@@ -68,5 +69,13 @@ export class DashboardComponent {
   onDelete(tile: Tile) {
     this.pluginsService.deleteTile(tile);
     this.selectedTileId.set(null);
+  }
+
+  onDrop(event: any) {
+    const tiles = this.pluginsService.tiles();
+    const movedTile = tiles[event.previousIndex];
+    tiles.splice(event.previousIndex, 1);
+    tiles.splice(event.currentIndex, 0, movedTile);
+    this.pluginsService.tiles.set([...tiles]);
   }
 }
