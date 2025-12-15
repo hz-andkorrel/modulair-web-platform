@@ -49,6 +49,8 @@ export class DashboardComponent {
       });
   }
 
+  private tileCounter = signal(1);
+
   onAdd(tile: Tile) {
     const ref = this.dialog.open(WidgetsComponent, {
       data: { plugins: [] },
@@ -59,8 +61,14 @@ export class DashboardComponent {
     ref.afterClosed().subscribe(result => {
       if (!result) return;
       const { widget } = result as { widget: WidgetDef };
-      const next = this.tiles().map(t => t.id === tile.id ? { ...t, selectedWidget: widget } : t);
-      this.tiles.set(next);
+      const newTile: Tile = {
+        id: `tile-${this.tileCounter() + 1}`,
+        colspan: widget.colspan ?? 2,
+        rowspan: widget.rowspan ?? 2,
+        selectedWidget: widget
+      };
+      this.tileCounter.update(c => c + 1);
+      this.tiles.update(tiles => [...tiles, newTile]);
     });
   }
 

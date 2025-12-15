@@ -44,7 +44,9 @@ export class PluginsService {
       widgets: [
         {
           id: plugin.id,
-          title: plugin.widget
+          title: plugin.widget,
+          colspan: 2,
+          rowspan: 2
         }
       ]
     }));

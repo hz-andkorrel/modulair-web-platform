@@ -19,6 +19,8 @@ export interface PluginDef {
 export interface WidgetDef {
   id: string;
   title: string;
+  colspan?: number;
+  rowspan?: number;
   description?: string;
 }
 
