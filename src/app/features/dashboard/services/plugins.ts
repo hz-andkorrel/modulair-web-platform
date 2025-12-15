@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { PluginDef } from '../widgets/widgets';
-import { plugins as registryPlugins, Plugin } from '../../shared/registry-data';
+import { PluginDef } from '../widgets/widgets.component';
+import { plugins as registryPlugins, Plugin } from '../../../shared/registry-data';
 
 @Injectable({
   providedIn: 'root',
@@ -44,8 +44,7 @@ export class PluginsService {
       widgets: [
         {
           id: plugin.id,
-          title: plugin.name,
-          description: plugin.description
+          title: plugin.widget
         }
       ]
     }));

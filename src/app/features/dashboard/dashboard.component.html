@@ -3,7 +3,7 @@
                  [colspan]="t.colspan"
                  [rowspan]="t.rowspan"
                  class="tile">
-    <div class="placeholder">
+    <div *ngIf="!t.selectedWidget" class="placeholder">
       <div class="placeholder-content">
         <div class="label">Leeg vak</div>
         <button mat-stroked-button class="add-btn" (click)="onAdd(t)" aria-label="Widget toevoegen">
@@ -12,5 +12,7 @@
         </button>
       </div>
     </div>
+
+    <app-table *ngIf="t.selectedWidget" [widget]="t.selectedWidget!" (close)="onClear(t)"></app-table>
   </mat-grid-tile>
 </mat-grid-list>

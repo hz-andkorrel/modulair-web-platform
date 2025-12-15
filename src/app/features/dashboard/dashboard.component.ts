@@ -1,11 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { WidgetsComponent, WidgetDef } from './widgets/widgets';
+import { WidgetsComponent, WidgetDef } from './widgets/widgets.component';
+import { TableComponent } from './tables/table.component';
 
 type Tile = {
   id: string;
@@ -17,7 +18,7 @@ type Tile = {
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [NgFor, MatGridListModule, MatIconModule, MatButtonModule, MatDialogModule],
+  imports: [NgFor, NgIf, MatGridListModule, MatIconModule, MatButtonModule, MatDialogModule, TableComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
