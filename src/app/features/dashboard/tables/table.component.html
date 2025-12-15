@@ -1,4 +1,6 @@
-<table mat-table [dataSource]="dataSource" class="mat-mdc-table">
+<div class="table-container">
+  <h3 class="table-title" style="text-align: center;">{{ widget().title }}</h3>
+  <table mat-table [dataSource]="dataSource" class="mat-mdc-table">
 
   <!-- Column 1 -->
   <ng-container matColumnDef="column1">
@@ -21,3 +23,4 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+</div>

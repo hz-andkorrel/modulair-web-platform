@@ -32,6 +32,13 @@ export class TableComponent {
     { column1: 'Data 7', column2: 'Data 8', column3: 'Data 9' },
     { column1: 'Data 7', column2: 'Data 8', column3: 'Data 9' },
     { column1: 'Data 7', column2: 'Data 8', column3: 'Data 9' },
+    { column1: 'Data 7', column2: 'Data 8', column3: 'Data 9' },
+    { column1: 'Data 7', column2: 'Data 8', column3: 'Data 9' },
+    { column1: 'Data 7', column2: 'Data 8', column3: 'Data 9' },
+    { column1: 'Data 7', column2: 'Data 8', column3: 'Data 9' },
+    { column1: 'Data 7', column2: 'Data 8', column3: 'Data 9' },
+    { column1: 'Data 7', column2: 'Data 8', column3: 'Data 9' },
+    { column1: 'Data 7', column2: 'Data 8', column3: 'Data 9' },
   ];
 
   onClose() {
