@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, signal, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatListModule } from '@angular/material/list';
@@ -11,6 +11,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { PluginUploadDialogComponent } from './plugin-upload-dialog/plugin-upload-dialog.component';
 
 interface Plugin {
   id: string;
@@ -38,12 +40,15 @@ interface Plugin {
     MatMenuModule,
     MatButtonModule,
     MatGridListModule,
+    MatDialogModule,
   ],
   templateUrl: './registry.component.html',
   styleUrl: './registry.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegistryComponent {
+  private dialog = inject(MatDialog);
+  
   searchTerm = signal('');
   selectedTags = signal<string[]>([]);
 
@@ -165,6 +170,15 @@ export class RegistryComponent {
     } else {
       this.selectedTags.set([...currentTags, tag]);
     }
+  }
+
+  openUploadDialog() {
+    this.dialog.open(PluginUploadDialogComponent).afterClosed().subscribe((file: File) => {
+      if (file) {
+        console.log('Plugin file received from dialog:', file);
+        // TODO: Add logic to parse and add plugin to registry
+      }
+    });
   }
 
   onPluginUpload(event: Event) {
