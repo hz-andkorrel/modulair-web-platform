@@ -172,6 +172,13 @@ export class RegistryComponent {
     }
   }
 
+  openPluginUploadDialog() {
+    this.dialog.open(PluginUploadDialogComponent, {
+      width: '500px',
+      maxHeight: '90vh'
+    });
+  }
+
   protected readonly PluginUploadDialogComponent = PluginUploadDialogComponent;
 }
 
