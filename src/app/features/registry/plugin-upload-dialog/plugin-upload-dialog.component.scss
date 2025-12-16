@@ -1,3 +1,50 @@
-.upload-container {
-  padding: 20px;
+:host {
+  display: block;
+}
+
+.uploader {
+  width: 100%;
+}
+
+.drop-zone {
+  border: 2px dashed #1976d2;
+  border-radius: 8px;
+  padding: 60px 20px;
+  text-align: center;
+  cursor: pointer;
+  background: rgba(25, 118, 210, 0.04);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(25, 118, 210, 0.08);
+    border-color: #1565c0;
+  }
+}
+
+.drop-zone mat-icon {
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
+  color: #1976d2;
+  display: block;
+  margin: 0 auto 16px;
+}
+
+.drop-zone h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+.drop-zone p {
+  margin: 4px 0;
+  color: #666;
+  font-size: 14px;
+
+  &.file-info {
+    font-size: 12px;
+    color: #999;
+    margin-top: 12px;
+  }
 }

@@ -47,7 +47,7 @@ interface Plugin {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegistryComponent {
-  private dialog = inject(MatDialog);
+  protected dialog = inject(MatDialog);
   
   searchTerm = signal('');
   selectedTags = signal<string[]>([]);
@@ -172,22 +172,6 @@ export class RegistryComponent {
     }
   }
 
-  openUploadDialog() {
-    this.dialog.open(PluginUploadDialogComponent).afterClosed().subscribe((file: File) => {
-      if (file) {
-        console.log('Plugin file received from dialog:', file);
-        // TODO: Add logic to parse and add plugin to registry
-      }
-    });
-  }
-
-  onPluginUpload(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      const file = input.files[0];
-      // For now, just log the file. You can add logic to process or store the plugin file.
-      console.log('Plugin file uploaded:', file);
-      // TODO: Add logic to parse and add plugin to registry
-    }
-  }
+  protected readonly PluginUploadDialogComponent = PluginUploadDialogComponent;
 }
+
