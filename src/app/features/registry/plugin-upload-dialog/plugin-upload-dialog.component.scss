@@ -62,16 +62,48 @@ mat-card-header {
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 4px;
   margin: 0;
-  padding: 12px !important;
+  padding: 12px 16px;
   background: rgba(25, 118, 210, 0.04);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 56px;
+}
+
+.file-icon {
+  flex-shrink: 0;
+  color: #1976d2;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.file-info-container {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.file-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-size {
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
 }
 
 .remove-btn {
+  flex-shrink: 0;
   opacity: 0.6;
-
-  &:hover {
-    opacity: 1;
-  }
 }
 
 mat-card-actions {
