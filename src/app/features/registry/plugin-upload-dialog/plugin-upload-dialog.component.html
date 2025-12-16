@@ -10,6 +10,27 @@
       <p>or click to browse</p>
       <p class="file-info">Accepted format: .zip</p>
     </div>
+
+    @if (selectedFile()) {
+      <mat-list class="file-list">
+        <mat-list-item class="file-item">
+          <mat-icon matListItemIcon>insert_drive_file</mat-icon>
+          <div matListItemTitle>{{ selectedFile()?.name }}</div>
+          <div matListItemLine>{{ (selectedFile()?.size || 0) | number }} bytes</div>
+          <button mat-icon-button matListItemMeta (click)="onRemoveFile()" class="remove-btn">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-list-item>
+      </mat-list>
+    }
+
     <input #fileInput type="file" accept=".zip" hidden (change)="onPluginUpload($event)" />
   </mat-card-content>
+
+  @if (selectedFile()) {
+    <mat-card-actions>
+      <button mat-stroked-button (click)="onCancel()">Cancel</button>
+      <button mat-raised-button color="primary" (click)="onUpload()">Upload</button>
+    </mat-card-actions>
+  }
 </mat-card>

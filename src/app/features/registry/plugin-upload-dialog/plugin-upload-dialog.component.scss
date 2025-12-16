@@ -14,6 +14,7 @@
   cursor: pointer;
   background: rgba(25, 118, 210, 0.04);
   transition: all 0.3s ease;
+  margin-bottom: 16px;
 
   &:hover {
     background: rgba(25, 118, 210, 0.08);
@@ -47,4 +48,32 @@
     color: #999;
     margin-top: 12px;
   }
+}
+
+.file-list {
+  margin: 16px 0;
+}
+
+.file-item {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  margin: 0;
+  padding: 12px !important;
+  background: rgba(25, 118, 210, 0.04);
+}
+
+.remove-btn {
+  opacity: 0.6;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 16px 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
 }
