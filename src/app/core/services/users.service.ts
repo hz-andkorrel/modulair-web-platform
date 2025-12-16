@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 export interface MeResponse {
   id: string;
@@ -15,7 +15,7 @@ export interface MeResponse {
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
-  private readonly API = `${environment.apiUrl}/users`;
+  private readonly API = `${environment.apiUrl}/api`;
 
   constructor(private http: HttpClient) {}
 
