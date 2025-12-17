@@ -1,0 +1,38 @@
+<mat-card class="uploader">
+  <mat-card-header>
+    <mat-card-title>Upload Plugin</mat-card-title>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <div cdkDropList class="drop-zone" (click)="fileInput.click()">
+      <mat-icon>cloud_upload</mat-icon>
+      <h3>Drag and drop your ZIP file here</h3>
+      <p>or click to browse</p>
+      <p class="file-info">Accepted format: .zip</p>
+    </div>
+
+    @if (selectedFile()) {
+      <div class="file-list">
+        <div class="file-item">
+          <mat-icon class="file-icon">insert_drive_file</mat-icon>
+          <div class="file-info-container">
+            <div class="file-name">{{ selectedFile()?.name }}</div>
+            <div class="file-size">{{ (selectedFile()?.size || 0) | number }} bytes</div>
+          </div>
+          <button mat-icon-button (click)="onRemoveFile()" class="remove-btn" [disableRipple]="true">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
+    }
+
+    <input #fileInput type="file" accept=".zip" hidden (change)="onPluginUpload($event)" />
+  </mat-card-content>
+
+  @if (selectedFile()) {
+    <mat-card-actions>
+      <button mat-stroked-button (click)="onCancel()">Cancel</button>
+      <button mat-raised-button color="primary" (click)="onUpload()">Upload</button>
+    </mat-card-actions>
+  }
+</mat-card>

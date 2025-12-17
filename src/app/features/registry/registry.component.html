@@ -6,11 +6,10 @@
         <p style="margin: 0; color: #888;">{{ filteredPlugins().length }} plugins available</p>
       </div>
       <div class="upload-plugin" style="margin-left: auto;">
-        <button mat-raised-button color="primary" (click)="fileInput.click()">
+        <button mat-raised-button color="primary" (click)="openPluginUploadDialog()">
           <mat-icon>upload</mat-icon>
           Upload Plugin
         </button>
-        <input #fileInput type="file" hidden (change)="onPluginUpload($event)" />
       </div>
     </div>
     <div class="header-content" style="display: flex; align-items: center; gap: 1rem; width: 100%; margin-top: 1rem;">
