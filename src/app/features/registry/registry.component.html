@@ -92,7 +92,7 @@
             <mat-icon>info</mat-icon>
             <span>View Details</span>
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item (click)="deletePlugin(plugin.id)">
             <mat-icon>delete</mat-icon>
             <span>Uninstall</span>
           </button>

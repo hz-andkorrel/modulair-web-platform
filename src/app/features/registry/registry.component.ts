@@ -196,6 +196,11 @@ export class RegistryComponent {
     }
   }
 
+  deletePlugin(pluginId: string) {
+    const currentPlugins = this.plugins();
+    this.plugins.set(currentPlugins.filter(p => p.id !== pluginId));
+  }
+
   protected readonly PluginUploadDialogComponent = PluginUploadDialogComponent;
 }
 
