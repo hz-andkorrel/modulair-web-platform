@@ -1,0 +1,35 @@
+<mat-grid-list [cols]="cols()" rowHeight="160px" gutterSize="16px" class="board"
+               cdkDropList
+               [cdkDropListData]="tiles()"
+               (cdkDropListDropped)="onDrop($event)">
+  <mat-grid-tile *ngFor="let t of tiles()"
+                 [colspan]="t.colspan"
+                 [rowspan]="t.rowspan"
+                 class="tile"
+                 [class.widget-tile]="!!t.selectedWidget"
+                 [class.clicked]="selectedTileId() === t.id && !!t.selectedWidget"
+                 (click)="t.selectedWidget && (selectedTileId() === t.id ? selectedTileId.set(null) : selectedTileId.set(t.id))"
+                 cdkDrag>
+    <button *ngIf="t.selectedWidget" 
+            mat-icon-button 
+            class="delete-badge" 
+            (click)="onDelete(t); $event.stopPropagation()" 
+            aria-label="Widget verwijderen">
+      <mat-icon>remove</mat-icon>
+    </button>
+
+    <div *ngIf="!t.selectedWidget" class="placeholder">
+      <div class="placeholder-content">
+        <div class="label">Leeg widget vak</div>
+        <button mat-stroked-button class="add-btn" (click)="onAdd(t)" aria-label="Widget toevoegen">
+          <mat-icon>add</mat-icon>
+          Toevoegen
+        </button>
+      </div>
+    </div>
+
+    <div class="widget-content" *ngIf="t.selectedWidget">
+      <app-table [widget]="t.selectedWidget!" (close)="onClear(t)"></app-table>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>

@@ -9,6 +9,7 @@ export interface Plugin {
   category: string;
   description: string;
   tags: string[];
+  widget: string;
 }
 
 export const plugins = signal<Plugin[]>([
@@ -21,6 +22,7 @@ export const plugins = signal<Plugin[]>([
     category: 'Smart Access Control',
     description: 'Manage and switch between different themes',
     tags: ['themes', 'ui', 'customization'],
+    widget: 'Rooms Widget'
   },
   {
     id: 'mews-plugin',
@@ -31,6 +33,7 @@ export const plugins = signal<Plugin[]>([
     category: 'Smart Access Control',
     description: 'Mews is a cloud-based property management system (PMS) used mainly in hotels',
     tags: ['smart access control'],
+    widget: 'Mews Check-in Widget'
   },
   {
     id: 'licenseplate-plugin',
@@ -41,6 +44,7 @@ export const plugins = signal<Plugin[]>([
     category: 'Smart Access Control',
     description: 'Car Park integration for license plate scanning and parking events',
     tags: ['smart access control', 'license-plate', 'parking'],
+    widget: 'License Plate Recognition Widget'
   },
   {
     id: 'code-formatter',
@@ -51,6 +55,7 @@ export const plugins = signal<Plugin[]>([
     category: 'Development',
     description: 'Auto-format code in multiple languages',
     tags: ['formatting', 'code-quality', 'development'],
+    widget: 'Widget'
   },
   {
     id: 'file-manager',
@@ -61,6 +66,8 @@ export const plugins = signal<Plugin[]>([
     category: 'Productivity',
     description: 'Enhanced file browsing and management features',
     tags: ['files', 'productivity', 'navigation'],
+    widget: 'Widget'
+    
   },
   {
     id: 'terminal-plus',
@@ -71,6 +78,7 @@ export const plugins = signal<Plugin[]>([
     category: 'Development',
     description: 'Advanced terminal with additional features',
     tags: ['terminal', 'cli', 'development'],
+    widget: 'Widget'
   },
 ]);
 

@@ -1,0 +1,93 @@
+:host {
+  display: block;
+  padding: 16px;
+}
+g
+.board {
+  ::ng-deep .cdk-drop-list-dragging .tile:not(.cdk-drag-dragging) {
+    transition: transform 250ms cubic-bezier(0.4, 0.0, 0.2, 1) !important;
+  }
+
+  ::ng-deep .cdk-drag-preview {
+    opacity: 0.8;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  ::ng-deep .cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0.4, 0.0, 0.2, 1) !important;
+  }
+}
+
+.tile {
+  padding: 0 !important;
+
+  .placeholder {
+    height: 100%;
+    width: 100%;
+    border: 2px dashed rgba(0,0,0,.2);
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    background: rgba(0,0,0,.02);
+    box-sizing: border-box;
+  }
+
+  &.widget-tile {
+    border: 2px solid rgba(0,0,0,.12);
+    border-radius: 12px;
+    overflow: visible;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.placeholder-content {
+  display: grid;
+  gap: 8px;
+  place-items: center;
+  text-align: center;
+}
+
+.label {
+  font-size: 13px;
+  opacity: .7;
+}
+
+.delete-badge {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  z-index: 20;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #ccc;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  opacity: 0;
+  pointer-events: none;
+
+  .tile.clicked & {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &:hover {
+    background: #999;
+  }
+
+  mat-icon {
+    font-size: 19px;
+    width: 19px;
+    height: 19px;
+  }
+}
+
+.widget-content {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+}
