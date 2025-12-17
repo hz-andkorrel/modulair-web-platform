@@ -197,8 +197,13 @@ export class RegistryComponent {
   }
 
   deletePlugin(pluginId: string) {
-    const currentPlugins = this.plugins();
-    this.plugins.set(currentPlugins.filter(p => p.id !== pluginId));
+    const plugin = this.plugins().find(p => p.id === pluginId);
+    if (!plugin) return;
+
+    if (confirm(`Are you sure you want to uninstall "${plugin.name}"?`)) {
+      const currentPlugins = this.plugins();
+      this.plugins.set(currentPlugins.filter(p => p.id !== pluginId));
+    }
   }
 
   protected readonly PluginUploadDialogComponent = PluginUploadDialogComponent;
