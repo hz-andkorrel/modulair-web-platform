@@ -12,6 +12,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { PluginUploadDialogComponent } from './plugin-upload-dialog/plugin-upload-dialog.component';
 
 interface Plugin {
@@ -23,6 +24,7 @@ interface Plugin {
   category: string;
   description: string;
   tags: string[];
+  isRunning?: boolean;
 }
 
 @Component({
@@ -41,6 +43,7 @@ interface Plugin {
     MatButtonModule,
     MatGridListModule,
     MatDialogModule,
+    MatTooltipModule,
   ],
   templateUrl: './registry.component.html',
   styleUrl: './registry.component.scss',
@@ -177,6 +180,20 @@ export class RegistryComponent {
       width: '500px',
       maxHeight: '90vh'
     });
+  }
+
+  startPlugin(pluginId: string) {
+    const plugin = this.plugins().find(p => p.id === pluginId);
+    if (plugin) {
+      plugin.isRunning = true;
+    }
+  }
+
+  stopPlugin(pluginId: string) {
+    const plugin = this.plugins().find(p => p.id === pluginId);
+    if (plugin) {
+      plugin.isRunning = false;
+    }
   }
 
   protected readonly PluginUploadDialogComponent = PluginUploadDialogComponent;

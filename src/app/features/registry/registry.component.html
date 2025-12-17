@@ -60,7 +60,10 @@
         </div>
 
         <div class="plugin-info">
-          <h3 class="plugin-name">{{ plugin.name }}</h3>
+          <div class="plugin-header">
+            <div class="status-indicator" [class.running]="plugin.isRunning" [class.stopped]="!plugin.isRunning"></div>
+            <h3 class="plugin-name">{{ plugin.name }}</h3>
+          </div>
           <div class="plugin-details">
             <span class="version">Version {{ plugin.version }}</span>
             <span class="separator">•</span>
@@ -68,6 +71,17 @@
             <span class="separator">•</span>
             <span class="updated">Updated {{ plugin.lastUpdated }}</span>
           </div>
+        </div>
+        <div class="plugin-controls">
+          @if (plugin.isRunning) {
+            <button mat-icon-button (click)="stopPlugin(plugin.id)" matTooltip="Stop plugin">
+              <mat-icon>stop_circle</mat-icon>
+            </button>
+          } @else {
+            <button mat-icon-button (click)="startPlugin(plugin.id)" matTooltip="Start plugin">
+              <mat-icon>play_circle</mat-icon>
+            </button>
+          }
         </div>
         <button mat-icon-button [matMenuTriggerFor]="pluginMenu" aria-label="More options">
           <mat-icon>more_vert</mat-icon>
