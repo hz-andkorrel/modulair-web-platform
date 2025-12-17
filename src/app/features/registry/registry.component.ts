@@ -12,7 +12,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { PluginUploadDialogComponent } from './plugin-upload-dialog/plugin-upload-dialog.component';
+import { environment } from '../../../environments/environment';
 
 interface Plugin {
   id: string;
@@ -23,6 +25,7 @@ interface Plugin {
   category: string;
   description: string;
   tags: string[];
+  isRunning?: boolean;
 }
 
 @Component({
@@ -41,6 +44,7 @@ interface Plugin {
     MatButtonModule,
     MatGridListModule,
     MatDialogModule,
+    MatTooltipModule,
   ],
   templateUrl: './registry.component.html',
   styleUrl: './registry.component.scss',
@@ -173,10 +177,126 @@ export class RegistryComponent {
   }
 
   openPluginUploadDialog() {
-    this.dialog.open(PluginUploadDialogComponent, {
+    const dialogRef = this.dialog.open(PluginUploadDialogComponent, {
       width: '500px',
       maxHeight: '90vh'
     });
+
+    dialogRef.afterClosed().subscribe(async (file: File | undefined) => {
+      if (file) {
+        await this.uploadPlugin(file);
+      }
+    });
+  }
+
+  private async uploadPlugin(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const res = await fetch(`${environment.apiUrl}/plugin/upload`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        const errorMsg = text.includes('.env')
+          ? 'Plugin mist .env bestand. Zorg dat de plugin een backend/.env bestand bevat.'
+          : text;
+        throw new Error(errorMsg);
+      }
+
+      const result = await res.json();
+      console.log('Upload result:', result);
+      alert(`Plugin geüpload: ${result.slug}`);
+
+      // Add to UI list
+      this.plugins.set([
+        {
+          id: result.slug,
+          name: result.slug,
+          version: 'unknown',
+          size: 'unknown',
+          lastUpdated: new Date().toISOString().slice(0, 10),
+          category: 'Uploaded',
+          description: `Container: ${result.containerName || result.slug}`,
+          tags: ['uploaded'],
+          isRunning: true,
+        },
+        ...this.plugins(),
+      ]);
+    } catch (err) {
+      console.error('Upload failed:', err);
+      const errorMsg = err instanceof Error ? err.message : 'Upload mislukt';
+      alert(`Upload mislukt: ${errorMsg}`);
+    }
+  }
+
+  startPlugin(pluginId: string) {
+    this.togglePluginState(pluginId, 'start');
+  }
+
+  stopPlugin(pluginId: string) {
+    this.togglePluginState(pluginId, 'stop');
+  }
+
+  private async togglePluginState(pluginId: string, action: 'start' | 'stop') {
+    const plugin = this.plugins().find(p => p.id === pluginId);
+    if (!plugin) return;
+
+    try {
+      const res = await fetch(`${environment.apiUrl}/plugin/${pluginId}/${action}`, {
+        method: 'POST',
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(text);
+      }
+
+      // Update UI state
+      const updatedPlugins = this.plugins().map(p => 
+        p.id === pluginId ? { ...p, isRunning: action === 'start' } : p
+      );
+      this.plugins.set(updatedPlugins);
+
+      console.log(`Plugin ${pluginId} ${action}ed successfully`);
+    } catch (err) {
+      console.error(`Failed to ${action} plugin:`, err);
+      const errorMsg = err instanceof Error ? err.message : `Failed to ${action} plugin`;
+      alert(`${action === 'start' ? 'Starten' : 'Stoppen'} mislukt: ${errorMsg}`);
+    }
+  }
+
+  async deletePlugin(pluginId: string) {
+    const plugin = this.plugins().find(p => p.id === pluginId);
+    if (!plugin) return;
+
+    if (!confirm(`Are you sure you want to uninstall "${plugin.name}"?`)) {
+      return;
+    }
+
+    try {
+      const res = await fetch(`${environment.apiUrl}/plugin/${pluginId}`, {
+        method: 'DELETE',
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(text);
+      }
+
+      // Remove from UI
+      const currentPlugins = this.plugins();
+      this.plugins.set(currentPlugins.filter(p => p.id !== pluginId));
+
+      console.log(`Plugin ${pluginId} deleted successfully`);
+    } catch (err) {
+      console.error('Failed to delete plugin:', err);
+      const errorMsg = err instanceof Error ? err.message : 'Failed to delete plugin';
+      alert(`Verwijderen mislukt: ${errorMsg}`);
+    }
   }
 
   protected readonly PluginUploadDialogComponent = PluginUploadDialogComponent;

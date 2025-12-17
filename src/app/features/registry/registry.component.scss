@@ -116,10 +116,35 @@
           flex: 1;
           min-width: 0; // Allow shrinking
           
+          .plugin-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+          }
+          
+          .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            transition: background-color 0.3s ease;
+            
+            &.running {
+              background-color: #4caf50;
+              box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+            }
+            
+            &.stopped {
+              background-color: #f44336;
+              box-shadow: 0 0 8px rgba(244, 67, 54, 0.5);
+            }
+          }
+          
           .plugin-name {
             font-size: 1.1rem;
             font-weight: 500;
-            margin: 0 0 8px 0;
+            margin: 0;
             color: #333;
           }
           
@@ -150,6 +175,22 @@
               mat-icon {
                 font-size: 18px;
               }
+            }
+          }
+        }
+        
+        .plugin-controls {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          flex-shrink: 0;
+          
+          button {
+            color: #1976d2;
+            transition: color 0.2s ease;
+            
+            &:hover {
+              color: #1565c0;
             }
           }
         }
