@@ -31,6 +31,8 @@ export const routes: Routes = [
       { path: 'plugin-car-park', component: PluginLicensePlateComponent },
     ]
   },
+  // First-time setup (requires auth)
+  { path: 'setup', loadComponent: () => import('./features/setup/first-time-setup.component').then(m => m.FirstTimeSetupComponent), canActivate: [authGuard] },
   { path: '**', redirectTo: '/login' }
 ];
  

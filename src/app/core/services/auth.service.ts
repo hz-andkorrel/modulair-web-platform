@@ -4,6 +4,7 @@ import { Observable, tap, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { User, LoginRequest, RegisterRequest, AuthResponse } from '../models/user.model';
 import { environment } from '../../../environments/environment';
+import { UsersService, MeResponse } from './users.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,11 +24,12 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private usersService: UsersService
   ) {}
 
-  login(credentials: LoginRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.API_URL}`, credentials).pipe(
+  login(credentials: LoginRequest): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/login`, credentials).pipe(
       tap(response => this.handleAuthSuccess(response))
     );
   }
@@ -50,20 +52,27 @@ export class AuthService {
   }
 
   logout(navigate = true): void {
-    this.http.delete<{ result: boolean }>(`${this.API_URL}`).subscribe(
-      response => {
-        if (!response.result) {
-        }
-
+    const refresh = localStorage.getItem('refresh_token') || '';
+    this.http.post<{ message?: string }>(`${this.API_URL}/logout`, { refresh_token: refresh }).subscribe(
+      () => {
         localStorage.removeItem(this.TOKEN_KEY);
         localStorage.removeItem(this.USER_KEY);
         localStorage.removeItem(this.EXPIRY_KEY);
+        localStorage.removeItem('refresh_token');
         this.currentUserSubject.next(null);
         this.isAuthenticated.set(false);
 
         if (navigate) {
           this.router.navigate(['/login']);
         }
+      }, () => {
+        localStorage.removeItem(this.TOKEN_KEY);
+        localStorage.removeItem(this.USER_KEY);
+        localStorage.removeItem(this.EXPIRY_KEY);
+        localStorage.removeItem('refresh_token');
+        this.currentUserSubject.next(null);
+        this.isAuthenticated.set(false);
+        if (navigate) this.router.navigate(['/login']);
       }
     );
   }
@@ -77,14 +86,34 @@ export class AuthService {
   }
 
   // TODO: Make sure the front-end receives the user from the backend
-  private handleAuthSuccess(response: AuthResponse): void {
-    localStorage.setItem(this.TOKEN_KEY, response.token);
-    localStorage.setItem(this.EXPIRY_KEY, response.expires_at.toString());
+  private handleAuthSuccess(response: any): void {
+    const access = response.access_token || response.token || '';
+    const refresh = response.refresh_token || '';
+    const expires = response.expires_at || response.expiry || undefined;
 
-    // localStorage.setItem(this.USER_KEY, JSON.stringify(response.user));
-    // this.currentUserSubject.next(response.user);
+    if (access) localStorage.setItem(this.TOKEN_KEY, access);
+    if (refresh) localStorage.setItem('refresh_token', refresh);
+    if (expires) localStorage.setItem(this.EXPIRY_KEY, expires.toString());
 
     this.isAuthenticated.set(true);
+
+    this.usersService.getMe().subscribe({
+      next: (user: MeResponse) => {
+        try {
+          localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+          this.currentUserSubject.next(user as unknown as User);
+        } catch {}
+
+        if (user.first_time_setup) {
+          this.router.navigate(['/setup']);
+        } else {
+          this.router.navigate(['/dashboard']);
+        }
+      },
+      error: () => {
+        this.router.navigate(['/dashboard']);
+      }
+    });
   }
 
   private hasToken(): boolean {
