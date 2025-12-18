@@ -78,4 +78,39 @@ export class DashboardComponent {
     tiles.splice(event.currentIndex, 0, movedTile);
     this.pluginsService.tiles.set([...tiles]);
   }
+
+  getPluginData(widgetId: string) {
+    // Hardcoded plugin-specific data with Dutch column names and consistent guest names
+    const pluginData: { [key: string]: { columns: string[], data: any[] } } = {
+      'licenseplate-plugin': {
+        columns: ['kenteken', 'gast', 'status'],
+        data: [
+          { kenteken: 'AB-12-CD', gast: 'Jan de Vries', status: 'Aangekomen' },
+          { kenteken: 'EF-34-GH', gast: 'Maria Jansen', status: 'Aangekomen' },
+          { kenteken: 'IJ-56-KL', gast: 'Pieter Bakker', status: 'Aangekomen' },
+          { kenteken: 'DE-67-PL', gast: 'Dirk Visser', status: 'Aangekomen' },
+        ]
+      },
+      'mews-plugin': {
+        columns: ['reservering', 'gast', 'incheckdatum'],
+        data: [
+          { reservering: 'RES001', gast: 'Jan de Vries', incheckdatum: '2025-12-18' },
+          { reservering: 'RES002', gast: 'Maria Jansen', incheckdatum: '2025-12-19' },
+          { reservering: 'RES003', gast: 'Pieter Bakker', incheckdatum: '2025-12-20' },
+          { reservering: 'DE-67-PL', gast: 'Dirk Visser', incheckdatum: '2025-12-20' },
+        ]
+      },
+      'key-plugin': {
+        columns: ['kamer', 'gast', 'vervaldatum'],
+        data: [
+          { kamer: '101', gast: 'Jan de Vries', vervaldatum: '2025-12-25' },
+          { kamer: '102', gast: 'Maria Jansen', vervaldatum: '2025-12-26' },
+          { kamer: '103', gast: 'Pieter Bakker', vervaldatum: '2025-12-27' },
+          { kamer: '104', gast: 'Dirk Visser', vervaldatum: '2025-12-27' },
+        ]
+      }
+    };
+
+    return pluginData[widgetId] || { columns: [], data: [] };
+  }
 }

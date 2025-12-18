@@ -20,18 +20,11 @@ export const TABLE_WIDGET_SIZE = {
 })
 export class TableComponent {
   widget = input.required<WidgetDef>();
+  displayedColumns = input<string[]>(['column1', 'column2', 'column3']);
+  dataSource = input<any[]>([]);
   close = output<void>();
 
   size = computed(() => TABLE_WIDGET_SIZE);
-
-  displayedColumns: string[] = ['column1', 'column2', 'column3'];
-  dataSource = [
-    { column1: 'Data 1', column2: 'Data 2', column3: 'Data 3' },
-    { column1: 'Data 4', column2: 'Data 5', column3: 'Data 6' },
-    { column1: 'Data 7', column2: 'Data 8', column3: 'Data 9' },
-    { column1: 'Data 7', column2: 'Data 8', column3: 'Data 9' },
-    { column1: 'Data 7', column2: 'Data 8', column3: 'Data 9' }
-  ];
 
   onClose() {
     this.close.emit();

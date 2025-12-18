@@ -29,7 +29,12 @@
     </div>
 
     <div class="widget-content" *ngIf="t.selectedWidget">
-      <app-table [widget]="t.selectedWidget!" (close)="onClear(t)"></app-table>
+      <app-table 
+        [widget]="t.selectedWidget!" 
+        [displayedColumns]="getPluginData(t.selectedWidget.id).columns"
+        [dataSource]="getPluginData(t.selectedWidget.id).data"
+        (close)="onClear(t)">
+      </app-table>
     </div>
   </mat-grid-tile>
 </mat-grid-list>

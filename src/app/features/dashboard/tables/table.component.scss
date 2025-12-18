@@ -19,8 +19,12 @@ table {
   width: 90%;
   background-color: transparent;
   padding: 0 5%;
+  table-layout: fixed;
 }
 
 th, td {
   border-bottom-color: rgba(0, 0, 0, 0.12);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
