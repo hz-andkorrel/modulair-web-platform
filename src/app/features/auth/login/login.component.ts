@@ -43,7 +43,7 @@ export class LoginComponent implements AfterViewInit {
 
   constructor() {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       rememberMe: [false]
     });
@@ -59,12 +59,7 @@ export class LoginComponent implements AfterViewInit {
       this.loading.set(true);
       this.error.set('');
 
-      const creds = {
-        email: this.loginForm.value.email,
-        password: this.loginForm.value.password
-      };
-
-      this.authService.login(creds).subscribe({
+      this.authService.login(this.loginForm.value).subscribe({
         next: () => {
           this.router.navigate(['/dashboard']);
         },
