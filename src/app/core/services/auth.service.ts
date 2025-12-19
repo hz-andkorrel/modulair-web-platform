@@ -41,6 +41,13 @@ export class AuthService {
     );
   }
 
+  // Initialize the service on first-time setup (creates initial admin)
+  initialize(initPayload: { hotel_name: string; admin_email: string; admin_name: string; admin_password: string }): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.API_URL}/initialize`, initPayload).pipe(
+      tap(response => this.handleAuthSuccess(response))
+    );
+  }
+
   // TODO: Implement email verification on the backend
   forgotPassword(email: string): Observable<{ message: string }> {
     return this.http.post<{ message: string }>(`${this.API_URL}/forgot-password`, { email });
