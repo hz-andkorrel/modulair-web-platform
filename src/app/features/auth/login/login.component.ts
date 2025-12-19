@@ -66,7 +66,7 @@ export class LoginComponent implements AfterViewInit {
 
       this.authService.login(creds).subscribe({
         next: () => {
-          this.router.navigate(['/dashboard']);
+          // Navigation handled by AuthService (redirect to /setup if required)
         },
         error: (err) => {
           this.loading.set(false);

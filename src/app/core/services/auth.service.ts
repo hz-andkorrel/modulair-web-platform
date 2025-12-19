@@ -4,6 +4,7 @@ import { Observable, tap, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { User, LoginRequest, RegisterRequest, AuthResponse } from '../models/user.model';
 import { environment } from '../../../environments/environment';
+import { UsersService, MeResponse } from './users.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private usersService: UsersService
   ) {}
 
   login(credentials: LoginRequest): Observable<any> {
@@ -101,6 +103,24 @@ export class AuthService {
     if (expires) localStorage.setItem(this.EXPIRY_KEY, expires.toString());
 
     this.isAuthenticated.set(true);
+
+    this.usersService.getMe().subscribe({
+      next: (user: MeResponse) => {
+        try {
+          localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+          this.currentUserSubject.next(user as unknown as User);
+        } catch {}
+
+        if (user.first_time_setup) {
+          this.router.navigate(['/setup']);
+        } else {
+          this.router.navigate(['/dashboard']);
+        }
+      },
+      error: () => {
+        this.router.navigate(['/dashboard']);
+      }
+    });
   }
 
   private hasToken(): boolean {
