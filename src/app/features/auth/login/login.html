@@ -12,12 +12,12 @@
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Email</mat-label>
-          <input matInput formControlName="username" type="email" autocomplete="email" #emailInput>
+          <input matInput formControlName="email" type="email" autocomplete="email" #emailInput>
           <mat-icon matPrefix>email</mat-icon>
-          <mat-error *ngIf="loginForm.get('username')?.hasError('required') && loginForm.get('username')?.touched">
+          <mat-error *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched">
             Email is required
           </mat-error>
-          <mat-error *ngIf="loginForm.get('username')?.hasError('username')">
+          <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
             Please enter a valid email
           </mat-error>
         </mat-form-field>
@@ -69,6 +69,9 @@
         <div class="register-link">
           Don't have an account?
           <a routerLink="/register">Register here</a>
+        </div>
+        <div class="initialize-cta">
+          <button mat-stroked-button color="accent" routerLink="/initialize">First-time setup</button>
         </div>
       </form>
     </mat-card-content>
