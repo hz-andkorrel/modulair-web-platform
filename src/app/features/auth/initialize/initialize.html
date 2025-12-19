@@ -1,0 +1,114 @@
+<div class="initialize-container">
+  <mat-card class="initialize-card">
+    <mat-card-header>
+      <div class="logo-container">
+        <mat-icon class="logo-icon">hotel</mat-icon>
+      </div>
+      <mat-card-title>First-Time Setup</mat-card-title>
+      <mat-card-subtitle>Initialize your Hotel Hub system</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="initializeForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Hotel Name</mat-label>
+          <input matInput formControlName="hotel_name" autocomplete="organization">
+          <mat-icon matPrefix>business</mat-icon>
+          <mat-error *ngIf="initializeForm.get('hotel_name')?.hasError('required') && initializeForm.get('hotel_name')?.touched">
+            Hotel name is required
+          </mat-error>
+          <mat-error *ngIf="initializeForm.get('hotel_name')?.hasError('minlength')">
+            Hotel name must be at least 2 characters
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Admin Name</mat-label>
+          <input matInput formControlName="admin_name" autocomplete="name">
+          <mat-icon matPrefix>person</mat-icon>
+          <mat-error *ngIf="initializeForm.get('admin_name')?.hasError('required') && initializeForm.get('admin_name')?.touched">
+            Admin name is required
+          </mat-error>
+          <mat-error *ngIf="initializeForm.get('admin_name')?.hasError('minlength')">
+            Admin name must be at least 2 characters
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Admin Email</mat-label>
+          <input matInput formControlName="admin_email" type="email" autocomplete="email">
+          <mat-icon matPrefix>email</mat-icon>
+          <mat-error *ngIf="initializeForm.get('admin_email')?.hasError('required') && initializeForm.get('admin_email')?.touched">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="initializeForm.get('admin_email')?.hasError('email')">
+            Please enter a valid email
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput
+                 [type]="hidePassword() ? 'password' : 'text'"
+                 formControlName="admin_password"
+                 autocomplete="new-password">
+          <mat-icon matPrefix>lock</mat-icon>
+          <button mat-icon-button matSuffix
+                  (click)="hidePassword.set(!hidePassword())"
+                  type="button"
+                  [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hidePassword()">
+            <mat-icon>{{hidePassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="initializeForm.get('admin_password')?.hasError('required') && initializeForm.get('admin_password')?.touched">
+            Password is required
+          </mat-error>
+          <mat-error *ngIf="initializeForm.get('admin_password')?.hasError('minlength')">
+            Password must be at least 6 characters
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Confirm Password</mat-label>
+          <input matInput
+                 [type]="hideConfirm() ? 'password' : 'text'"
+                 formControlName="confirm_password"
+                 autocomplete="new-password">
+          <mat-icon matPrefix>lock</mat-icon>
+          <button mat-icon-button matSuffix
+                  (click)="hideConfirm.set(!hideConfirm())"
+                  type="button"
+                  [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hideConfirm()">
+            <mat-icon>{{hideConfirm() ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="initializeForm.get('confirm_password')?.hasError('required') && initializeForm.get('confirm_password')?.touched">
+            Confirm password is required
+          </mat-error>
+          <mat-error *ngIf="initializeForm.hasError('mismatch') && initializeForm.get('confirm_password')?.touched">
+            Passwords must match
+          </mat-error>
+        </mat-form-field>
+
+        <div class="error-message" *ngIf="error()">
+          <mat-icon>error</mat-icon>
+          <span>{{ error() }}</span>
+        </div>
+
+        <button mat-raised-button
+                color="primary"
+                type="submit"
+                class="full-width initialize-button"
+                [disabled]="initializeForm.invalid || loading()">
+          <mat-spinner diameter="20" *ngIf="loading()"></mat-spinner>
+          <span *ngIf="!loading()">Initialize System</span>
+        </button>
+
+        <div class="login-link">
+          Already initialized?
+          <a routerLink="/login">Sign in here</a>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
