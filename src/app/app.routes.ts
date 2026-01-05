@@ -28,6 +28,7 @@ export const routes: Routes = [
       { path: 'registry/key-plugin', component: PluginKeyComponent },
       { path: 'registry/licenseplate-plugin', component: PluginLicensePlateComponent },
       { path: 'settings', component: SettingsComponent },
+      { path: 'settings/users', loadComponent: () => import('./features/settings/user-management/user-management.component').then(m => m.UserManagementComponent) },
       { path: 'plugin-mews', component: PluginMewsComponent },
       { path: 'plugin-car-park', component: PluginLicensePlateComponent },
     ]
