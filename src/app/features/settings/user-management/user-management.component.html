@@ -15,7 +15,7 @@
         <div class="form-row">
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Name</mat-label>
-            <input matInput formControlName="name" placeholder="John Doe">
+            <input matInput formControlName="name" placeholder="">
             <mat-icon matPrefix>person</mat-icon>
             <mat-error *ngIf="userForm.get('name')?.hasError('required')">
               Name is required
