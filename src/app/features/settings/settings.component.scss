@@ -13,8 +13,68 @@
 }
 
 .settings-section {
+  margin-bottom: 32px;
+
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #333;
+  }
+}
+
+.settings-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
   margin-bottom: 24px;
 }
+
+.settings-card {
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+  }
+
+  mat-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+
+    .card-icon {
+      font-size: 32px;
+      width: 32px;
+      height: 32px;
+      color: #2196F3;
+    }
+
+    mat-card-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+  }
+
+  mat-card-content {
+    color: #666;
+    font-size: 14px;
+  }
+
+  mat-card-actions {
+    padding: 0 16px 16px;
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+  }
+}
+
 .settings-box {
   padding: 16px;
   border: 1px solid #e0e0e0;

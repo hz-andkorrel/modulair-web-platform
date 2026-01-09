@@ -2,6 +2,33 @@
 <div class="settings-container">
   <div class="sheet">
   <h1>Settings</h1>
+
+  <!-- Admin Section -->
+  <div class="settings-section">
+    <h2>Administration</h2>
+    <div class="settings-cards">
+      <mat-card class="settings-card" routerLink="/settings/users">
+        <mat-card-header>
+          <mat-icon class="card-icon">people</mat-icon>
+          <mat-card-title>User Management</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          Create, edit, and manage user accounts and roles
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button color="primary">
+            Manage Users
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- Hotel Settings Section -->
+  <div class="settings-section">
+    <h2>Hotel Information</h2>
+  
   <div class="settings-box">
     <label for="hotel-name">Hotelnaam</label>
     <input id="hotel-name" name="hotelName" type="text" class="settings-input" placeholder="Vul hotelnaam in" aria-label="Hotelnaam">
@@ -32,5 +59,6 @@
     </div>
   </div>
   <button mat-raised-button color="primary" class="save-button" aria-label="Instellingen opslaan">Opslaan</button>
+  </div>
 </div>
 </div>
